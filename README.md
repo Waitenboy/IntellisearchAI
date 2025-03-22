@@ -27,20 +27,20 @@ Ensure you have the following installed:
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/Poulami40/Intellisearch.git
-cd Intellisearch
+git clone https://github.com/Waitenboy/IntellisearchAI.git
+cd IntellisearchAI
 ```
 
 ### Step 2: Install Dependencies
 
-Navigate to the backend folder and install dependencies:
+Navigate to the backend folder and install dependencies: ("npm install" might take 1-2 minutes)
 
 ```bash
 cd backend
 npm install
 ```
 
-Then, do the same for the frontend:
+Then, do the same for the frontend: ("npm install" might take 1-2 minutes)
 
 ```bash
 cd ../frontend
@@ -57,6 +57,12 @@ You'll need two terminals to start both the backend and frontend.
 cd backend
 node server.js
 ```
+#### Wait till terminal shows: 
+
+```bash
+Server running on port 5000
+MongoDB Connected
+```
 
 This starts the backend on `http://localhost:5000` (or as specified in `server.js`).
 
@@ -67,7 +73,8 @@ cd frontend
 npm start
 ```
 
-This launches the frontend at `http://localhost:3000`.
+This automatically launches the frontend at `http://localhost:3000`. 
+(it might take 1-2 minutes to load in the browser)
 
 ---
 
