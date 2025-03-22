@@ -100,7 +100,7 @@ Password: rohit
 ## Project Structure 🏷️
 
 ```
-/Intellisearch
+/IntellisearchAI
 │── backend/       # Node.js Express backend
 │   ├── models/    # Database models
 │   ├── routes/    # API routes
