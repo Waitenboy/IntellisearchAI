@@ -1,0 +1,38 @@
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: monospace;
+  background-color: #f4f4f9;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+/* Ensure the app takes full viewport height */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Code blocks styling */
+code {
+  font-family: 'Fira Code', 'Courier New', monospace;
+  background: #eaeaea;
+  padding: 3px 6px;
+  border-radius: 4px;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+}

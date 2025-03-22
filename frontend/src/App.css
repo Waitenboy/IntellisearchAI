@@ -1,0 +1,98 @@
+
+
+body {
+  background-color: white; /* Soft background */
+  font-family: monospace;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.container {
+  text-align: center;
+  width: 100%;  /* Full width */
+  max-width: none; /* Remove max-width restriction */
+  padding: 20px;
+  box-shadow: none; /* Remove box shadow */
+  background: none; /* Remove background */
+  border-radius: 0; /* Remove border-radius */
+}
+
+h1 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+p {
+  color: #666;
+}
+
+input {
+  padding: 10px;
+  width: 50%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 15px;
+  margin-left: 10px;
+  border: none;
+  background: #9b5454;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background: #df9292;
+}
+
+.result-section {
+  text-align: left;
+  margin-top: 20px;
+}
+
+.result-section h2 {
+  font-size: 18px;
+  color: #333;
+}
+
+.result-section p {
+  font-size: 16px;
+  color: #555;
+}
+
+/* Navbar styles */
+.navbar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #ab7272;
+  padding: 15px 0;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+}
+
+/* Ensure content starts below navbar */
+.content {
+  margin-top: 70px; /* Space below navbar */
+  padding: 20px;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding-bottom: 60px; /* Avoid content overlapping with the footer */
+}
