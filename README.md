@@ -73,7 +73,7 @@ cd frontend
 npm start
 ```
 
-This automatically launches the frontend at `http://localhost:3000`. 
+This automatically launches the website at `http://localhost:3000`. 
 (it might take 1-2 minutes to load in the browser)
 
 ---
