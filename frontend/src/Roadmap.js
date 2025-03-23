@@ -4,6 +4,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import roadmap1 from './components/roadmap.gif';
 
+
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+
+
+
+
+
 function Roadmap() {
     const [topic, setTopic] = useState("");
     const [weeks, setWeeks] = useState(4); // Default to 4 weeks
@@ -14,6 +22,46 @@ function Roadmap() {
     useEffect(() => {
         window.scrollTo(0, 0); // Scroll to top when the component loads
     }, []);
+
+    const handleDownloadPDF = async () => {
+        const roadmapElement = document.getElementById("roadmap-content");
+        
+        if (!roadmapElement) {
+            alert("No roadmap to download. Please generate a roadmap first.");
+            return;
+        }
+    
+        try {
+            const canvas = await html2canvas(roadmapElement, { scale: 2 });
+            const imgData = canvas.toDataURL("image/png");
+    
+            const pdf = new jsPDF("p", "mm", "a4");
+            const imgWidth = 190; // A4 width
+            const pageHeight = 297; // A4 height in mm
+            const marginTop = 10; // Leave some space at the top
+            const imgHeight = (canvas.height * imgWidth) / canvas.width; // Maintain aspect ratio
+    
+            let yPosition = marginTop; // Start below the top margin
+    
+            let currentPage = 1;
+            while (yPosition < imgHeight) {
+                pdf.addImage(imgData, "PNG", 10, yPosition * -1 + marginTop, imgWidth, imgHeight);
+    
+                if (yPosition + pageHeight < imgHeight) {
+                    pdf.addPage();
+                    yPosition += pageHeight; // Move to the next section
+                } else {
+                    break; // Stop if all content fits
+                }
+            }
+    
+            pdf.save("Study_Roadmap.pdf");
+    
+        } catch (error) {
+            console.error("Error generating PDF:", error);
+            alert("Failed to generate PDF. Please try again.");
+        }
+    };
 
     const handleGenerateRoadmap = async () => {
         if (!topic.trim()) {
@@ -140,7 +188,7 @@ function Roadmap() {
                 {error && <p style={{ color: "red" }}>{error}</p>}
                 
                                     {roadmap && (
-                        <div
+                        <div id="roadmap-content"
                             style={{
                                 marginTop: "50px",
                                 textAlign: "left",
@@ -167,8 +215,29 @@ function Roadmap() {
                                 📍 Your Personalized Study Roadmap
                             </h3>
                             <div dangerouslySetInnerHTML={{ __html: roadmap }} />
+                            
+
                         </div>
+                        
                     )}
+                    {/* Download Button */}
+                    <button
+                                        onClick={handleDownloadPDF}
+                                        style={{
+                                            marginTop: "20px",
+                                            padding: "10px 20px",
+                                            backgroundColor: "rgb(206, 101, 101)",
+                                            color: "white",
+                                            border: "none",
+                                            cursor: "pointer",
+                                            borderRadius: "5px",
+                                            display: "block",
+                                            marginLeft: "auto",
+                                            marginRight: "auto",
+                                        }}
+                                    >
+                                        📥 Download Roadmap
+                                    </button>
 
             </div>
         </div>

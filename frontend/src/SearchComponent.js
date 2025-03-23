@@ -320,7 +320,7 @@ const SearchComponent = () => {
 
             {translatedSummary && (
                 <div style={styles.section}>
-                    <h3 style={{ fontWeight: "bold" }}>Translated Summary ({selectedLanguage})</h3>
+                    <h3 style={{ fontWeight: "bold" }}>Translated Summary</h3>
                     <p>{translatedSummary}</p>
                 </div>
          
