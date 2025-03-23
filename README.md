@@ -133,12 +133,6 @@ Password: rohit
 
 ---
 
-## License 📝
-
-This project is licensed under the MIT License.
-
----
-
 ## Contact & Support 📩
 
 For issues or feature requests, please open an issue in the GitHub repository.
