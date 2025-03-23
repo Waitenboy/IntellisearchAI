@@ -1,6 +1,6 @@
 
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import roadmap1 from './components/roadmap.gif';
 
@@ -10,6 +10,10 @@ function Roadmap() {
     const [roadmap, setRoadmap] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+
+    useEffect(() => {
+        window.scrollTo(0, 0); // Scroll to top when the component loads
+    }, []);
 
     const handleGenerateRoadmap = async () => {
         if (!topic.trim()) {

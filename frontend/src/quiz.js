@@ -17,6 +17,7 @@ function Quiz() {
         if (query) {
             fetchResults();
         }
+        window.scrollTo(0, 0); // Scroll to top when the component loads
     }, [query]);
 
     const fetchResults = async () => {
