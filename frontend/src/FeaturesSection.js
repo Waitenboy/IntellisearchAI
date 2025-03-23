@@ -1,7 +1,7 @@
 import React from "react";
 // import { FaUserCircle } from "react-icons/fa";
 // import { GiAchievement } from "react-icons/gi";
-import { MdHistoryEdu } from "react-icons/md";
+// import { MdHistoryEdu } from "react-icons/md";
 import Lottie from "lottie-react";
 import dashboard from "./components/dashboard.json";
 import badge from "./components/badge.json";

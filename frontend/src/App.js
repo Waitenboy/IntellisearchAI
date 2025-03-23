@@ -15,6 +15,8 @@ import TestimonialsSection from "./TestimonialsSection";
 import Footer from "./Footer"; 
 import Quiz from "./quiz";
 import Roadmap from "./Roadmap";
+import Lottie from "lottie-react";
+import roadmapimg from "./roadmapimg.json";
 import "./App.css";
 
 
@@ -57,26 +59,77 @@ function App() {
                                         
                                         <SearchComponent />
                                         
-                                        <div style={{ textAlign: "center", margin: "20px 0" }}>
-                                            <Link to="/roadmap">
-                                                <button style={{ 
-                                                    padding: "10px 20px", 
-                                                    fontSize: "16px", 
+                                        <div 
+                                        style={{ 
+                                            width: "100%", 
+                                            backgroundColor: "rgb(155, 59, 59)", // Light red-pinkish background
+                                            padding: "60px 0px", // Increased padding for better spacing
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            textAlign: "center"
+                                        }}
+                                    >
+                                         {/* Lottie Animation */}
+                                         <Lottie 
+                                                animationData={roadmapimg} 
+                                                style={{ 
+                                                    width: 300, 
+                                                    height: 300, 
+                                                    margin: "0 auto", 
+                                                    display: "block", 
+                                                    marginBottom: "-70px", // Pulls closer to the text
+                                                    marginTop: "-80px" // Moves it upward
+                                                }} 
+                                            />
+
+
+                                            <h2 
+                                                style={{ 
+                                                    fontSize: "35px", 
                                                     fontWeight: "bold", 
-                                                    backgroundColor: "#bb7777", 
-                                                    color: "white", 
-                                                    border: "none", 
-                                                    borderRadius: "5px", 
-                                                    cursor: "pointer", 
-                                                    transition: "background 0.3s" 
+                                                    color: "rgb(234, 187, 187)", 
+                                                    marginBottom: "10px", 
+                                                    marginTop: "0px" // Ensure no extra top margin
                                                 }}
-                                                onMouseOver={(e) => e.target.style.backgroundColor = "rgb(135, 84, 84)"}
-                                                onMouseOut={(e) => e.target.style.backgroundColor = "#bb7777"}
+                                            >
+                                                Want to create a roadmap and know how to study?
+                                            </h2>
+
+                                    <p style={{ fontSize: "18px", color: "white", marginBottom: "25px" }}>
+                                        We got you covered. Check this out!
+                                    </p>
+                                        <div style={{ textAlign: "center" }}>
+                                            <Link to="/roadmap">
+                                                <button 
+                                                    style={{ 
+                                                        padding: "18px 40px", // Bigger button
+                                                        fontSize: "22px", // Larger text
+                                                        fontWeight: "bold",
+                                                        backgroundColor: "rgb(231, 204, 204)",
+                                                        color: "black",
+                                                        border: "none",
+                                                        borderRadius: "10px", // More rounded
+                                                        cursor: "pointer",
+                                                        transition: "background 0.3s, transform 0.2s",
+                                                        boxShadow: "0px 6px 15px rgba(0, 0, 0, 0.2)" // Stronger shadow
+                                                    }}
+                                                    onMouseOver={(e) => {
+                                                        e.target.style.backgroundColor = "rgb(225, 124, 124)";
+                                                        e.target.style.transform = "scale(1.1)"; // Slight zoom effect
+                                                    }}
+                                                    onMouseOut={(e) => {
+                                                        e.target.style.backgroundColor = "rgb(231, 177, 177)";
+                                                        e.target.style.transform = "scale(1)"; // Reset zoom
+                                                    }}
                                                 >
                                                     Create a Study Plan
                                                 </button>
                                             </Link>
                                         </div>
+                                    </div>
+
 
                                         <FeaturesSection />
                                     </div>
