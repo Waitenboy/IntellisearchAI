@@ -79,7 +79,7 @@ function Quiz() {
                 backgroundColor: "#bb7777",
                 color: "white",
                 padding: "60px",
-                fontSize: "24px",
+                fontSize: "35px",
                 fontWeight: "bold",
                 textAlign: "center",
                 width: "100%",
@@ -102,7 +102,7 @@ function Quiz() {
                     <div>
                         {quiz.map((q) => (
                             <div key={q.id} style={{ border: "1px solid #ddd", padding: "15px", borderRadius: "8px", margin: "15px 0", boxShadow: "2px 2px 10px rgba(0,0,0,0.1)", backgroundColor: "white" }}>
-                                <h4>Q{q.id}: {q.question}</h4>
+                                <h5>Q{q.id}: {q.question}</h5>
                                 <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                                     {q.options.map((option) => {
                                         const isSelected = selectedAnswers[q.id] === option.id;
@@ -151,9 +151,26 @@ function Quiz() {
                                 Submit Answers
                             </button>
                         ) : (
-                            <p style={{ fontSize: "18px", fontWeight: "bold", marginTop: "15px", color: "#28a745" }}>
+                            <div style={{ textAlign: "center", marginTop: "15px" }}>
+                            <p style={{ fontSize: "25px", fontWeight: "bold", color: "#28a745" }}>
                                 ✅ Quiz Submitted! You scored {score}/{quiz.length}.
                             </p>
+                            <p 
+                                style={{ 
+                                    fontSize: "25px", 
+                                    fontWeight: "bold", 
+                                    marginTop: "10px", 
+                                    color: score <= 2 ? "#d9534f"  // Red for poor
+                                        : score === 3 ? "#f0ad4e" // Orange for decent
+                                        : "#5cb85c" // Green for excellent
+                                }}
+                            >
+                                {score <= 2 ? "😞 Poor! Looks like you need practice." 
+                                : score === 3 ? "😊 Great! But you can do better!" 
+                                : "🎉 Excellent! You are a pro!"}
+                            </p>
+                        </div>
+
                         )}
                     </div>
                 ) : (
