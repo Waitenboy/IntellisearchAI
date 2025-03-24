@@ -159,10 +159,16 @@ app.put("/api/update-user", authenticateToken, async (req, res) => {
         const user = await User.findById(userId);
         if (!user) return res.status(404).json({ error: "User not found" });
 
-        // Update only provided fields
-        if (username) user.username = username;
-        if (email) user.email = email;
-        if (password) user.password = password; // Make sure to hash the password before saving!
+        // ✅ Update username & email
+        user.username = username || user.username;
+        user.email = email || user.email;
+
+        // ✅ Hash new password before saving
+        if (password) {
+            const salt = await bcrypt.genSalt(10);
+            user.password = await bcrypt.hash(password, salt);
+        }
+
 
         await user.save();
         res.json({ message: "Profile updated successfully!", user });

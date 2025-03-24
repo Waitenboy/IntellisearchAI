@@ -33,7 +33,7 @@ function App() {
 
                 <div className="main-content">
                     <Routes>
-                    <Route path="/" element={<PrivateRoute element={
+                    <Route path="/" element={
                             <>
                                 <div style={{ marginBottom: "390px" }}> 
                                     <UncontrolledExample />
@@ -141,7 +141,7 @@ function App() {
                                 </div>
                                 <TestimonialsSection />
                             </>
-                         } />} />
+                         } />
                         
                     <Route path="/quiz" element={<Quiz />} />
                     <Route path="/roadmap" element={<Roadmap />} />
@@ -151,7 +151,7 @@ function App() {
                     <Route path="/forum" element={<Forum />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
-                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/profile" element={<PrivateRoute element={<Profile />} />} />
                     </Routes>
                 </div>
 
