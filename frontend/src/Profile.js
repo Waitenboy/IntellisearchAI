@@ -173,14 +173,14 @@ const Profile = () => {
             style={inputStyle}
           />
 
-          <label><strong>Email:</strong></label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            disabled={!isEditing}
-            style={inputStyle}
-          />
+<label><strong>Email:</strong></label>
+<input
+  type="email"
+  value={user?.email}  // Display user's email directly
+  readOnly  // Prevent editing
+  style={{ ...inputStyle, backgroundColor: "#f0f0f0", cursor: "not-allowed" }} // Light gray background
+/>
+
 
           <label><strong>New Password:</strong></label>
           <input

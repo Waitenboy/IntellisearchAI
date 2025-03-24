@@ -144,11 +144,11 @@ function App() {
                          } />
                         
                     <Route path="/quiz" element={<Quiz />} />
-                    <Route path="/roadmap" element={<Roadmap />} />
+                    <Route path="/roadmap" element={<PrivateRoute element={<Roadmap />} />} />
                     <Route path="/home" element={<Navigate to="/" />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/contact" element={<Contact />} />
-                    <Route path="/forum" element={<Forum />} />
+                    <Route path="/forum" element={<PrivateRoute element={<Forum />}/>}  />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/profile" element={<PrivateRoute element={<Profile />} />} />
