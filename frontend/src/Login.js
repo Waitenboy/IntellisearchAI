@@ -23,46 +23,64 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
-    try {
-      const response = await fetch("http://localhost:5000/api/request-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        alert("OTP sent to your email!");
-        setStep(2);
-      } else {
-        setError(data.error);
-      }
-    } catch (error) {
-      setError("Failed to request OTP.");
+
+    if (!email || !password) {
+        setError("Email and password are required.");
+        return;
     }
-  };
+
+    try {
+        const response = await fetch("http://localhost:5000/api/request-otp", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }), // ✅ Send password too
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert("OTP sent to your email!");
+            setStep(2);
+        } else {
+            setError(data.error);
+        }
+    } catch (error) {
+        setError("Failed to request OTP.");
+    }
+};
+
 
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
     setError("");
-    try {
-      const response = await fetch("http://localhost:5000/api/verify-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, otp }),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        alert("Login successful!");
-        localStorage.setItem("token", data.token);
-        window.dispatchEvent(new Event("storage"));
-        navigate("/");
-      } else {
-        setError(data.error);
-      }
-    } catch (error) {
-      setError("OTP verification failed.");
+
+    if (!password) {
+        setError("Password is required.");
+        return;
     }
-  };
+
+    try {
+        const response = await fetch("http://localhost:5000/api/verify-otp", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, otp, password }), // ✅ Send password too
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert("Login successful!");
+            localStorage.setItem("token", data.token);
+            window.dispatchEvent(new Event("storage"));
+            navigate("/");
+        } else {
+            setError(data.error); // Display backend error (wrong OTP or password)
+        }
+    } catch (error) {
+        setError("OTP verification failed.");
+    }
+};
+
 
   return (
     <>

@@ -86,27 +86,34 @@ const transporter = nodemailer.createTransport({
 
 
 
-// Route to request OTP
+// const bcrypt = require("bcrypt");
+
 app.post("/api/request-otp", async (req, res) => {
-    const { email } = req.body;
+    const { email, password } = req.body;
 
     try {
-        // Check if user exists
+        // 1️⃣ Check if user exists
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({ error: "User not found" });
         }
 
-        // Generate 6-digit OTP
+        // 2️⃣ Verify Password
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(400).json({ error: "Incorrect password." });
+        }
+
+        // 3️⃣ Generate 6-digit OTP
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
         const otpExpires = new Date(Date.now() + 10 * 60 * 1000); // 10-minute expiry
 
-        // Save OTP to database
+        // 4️⃣ Save OTP to database
         user.otp = otp;
         user.otpExpires = otpExpires;
         await user.save();
 
-        // Send OTP via email
+        // 5️⃣ Send OTP via email
         await transporter.sendMail({
             from: "your-email@gmail.com",
             to: user.email,
@@ -121,31 +128,27 @@ app.post("/api/request-otp", async (req, res) => {
     }
 });
 
-// Route to verify OTP & log in
+
 app.post("/api/verify-otp", async (req, res) => {
-    const { email, otp } = req.body;
+    const { email, otp, password } = req.body;
 
-    try {
-        const user = await User.findOne({ email });
-
-        if (!user || user.otp !== otp || new Date() > user.otpExpires) {
-            return res.status(400).json({ error: "Invalid or expired OTP" });
-        }
-
-        // Clear OTP after successful login
-        user.otp = null;
-        user.otpExpires = null;
-        await user.save();
-
-        // Generate JWT token
-        const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
-
-        res.json({ message: "Login successful", token, userId: user._id });
-    } catch (error) {
-        console.error("OTP Verification Error:", error);
-        res.status(500).json({ error: "Internal server error" });
+    // 1️⃣ Check if OTP is correct
+    const user = await User.findOne({ email });
+    if (!user || user.otp !== otp) {
+        return res.status(400).json({ error: "Invalid OTP." });
     }
+
+    // 2️⃣ Check if password is correct
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+        return res.status(400).json({ error: "Incorrect password." });
+    }
+
+    // 3️⃣ Generate Token & Respond
+    const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: "1h" });
+    res.json({ token });
 });
+
 
 
 app.put("/api/update-user", authenticateToken, async (req, res) => {
