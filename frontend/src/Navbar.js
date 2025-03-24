@@ -20,13 +20,17 @@ function ResponsiveAppBar() {
   const [isAuthenticated, setIsAuthenticated] = React.useState(!!localStorage.getItem("token"));
 
   React.useEffect(() => {
-    const handleStorageChange = () => {
-      setIsAuthenticated(!!localStorage.getItem("token"));
-    };
+    const checkAuth = () => setIsAuthenticated(!!localStorage.getItem("token"));
 
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
-  }, []);
+    window.addEventListener("storage", checkAuth);
+    window.addEventListener("authChange", checkAuth);  // ✅ Listen for login changes
+
+    return () => {
+        window.removeEventListener("storage", checkAuth);
+        window.removeEventListener("authChange", checkAuth);
+    };
+}, []);
+
 
   const handleOpenNavMenu = (event) => setAnchorElNav(event.currentTarget);
   const handleOpenUserMenu = (event) => setAnchorElUser(event.currentTarget);

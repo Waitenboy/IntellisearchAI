@@ -6,6 +6,8 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const ForumPost = require("./models/ForumPost"); // Import ForumPost model
+
+
 require("dotenv").config();
 
 
@@ -31,7 +33,9 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     searchHistory: { type: [String], default: [] },
     searchCount: { type: Number, default: 0 },
-    quizCount: { type: Number, default: 0 }
+    quizCount: { type: Number, default: 0 },
+    otp: { type: String },  // Store OTP
+    otpExpires: { type: Date } // OTP expiration
 });
 
 const User = mongoose.model("User", userSchema);
@@ -65,6 +69,80 @@ const authenticateToken = (req, res, next) => {
 // Forum Route (Protected)
 app.get("/api/forum", authenticateToken, (req, res) => {
     res.json({ message: "Welcome to the Discussion Forum!" });
+});
+
+const nodemailer = require("nodemailer");
+
+// Configure Nodemailer
+const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,  // 🔹 Use 587 instead of 465
+    secure: false,  // 🔹 False for port 587
+    auth: {
+        user: "poulamibasu40@gmail.com",  // Replace with your email
+        pass: "nyih xkxf abhz vjib",  // Use an App Password if using Gmail
+    },
+});
+
+// Route to request OTP
+app.post("/api/request-otp", async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        // Check if user exists
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ error: "User not found" });
+        }
+
+        // Generate 6-digit OTP
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        const otpExpires = new Date(Date.now() + 10 * 60 * 1000); // 10-minute expiry
+
+        // Save OTP to database
+        user.otp = otp;
+        user.otpExpires = otpExpires;
+        await user.save();
+
+        // Send OTP via email
+        await transporter.sendMail({
+            from: "your-email@gmail.com",
+            to: user.email,
+            subject: "Your Login OTP",
+            text: `Your OTP is ${otp}. It expires in 10 minutes.`,
+        });
+
+        res.json({ message: "OTP sent successfully" });
+    } catch (error) {
+        console.error("Error sending OTP:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+// Route to verify OTP & log in
+app.post("/api/verify-otp", async (req, res) => {
+    const { email, otp } = req.body;
+
+    try {
+        const user = await User.findOne({ email });
+
+        if (!user || user.otp !== otp || new Date() > user.otpExpires) {
+            return res.status(400).json({ error: "Invalid or expired OTP" });
+        }
+
+        // Clear OTP after successful login
+        user.otp = null;
+        user.otpExpires = null;
+        await user.save();
+
+        // Generate JWT token
+        const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
+
+        res.json({ message: "Login successful", token, userId: user._id });
+    } catch (error) {
+        console.error("OTP Verification Error:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
 });
 
 

@@ -19,6 +19,11 @@ import Lottie from "lottie-react";
 import roadmapimg from "./roadmapimg.json";
 import "./App.css";
 
+const PrivateRoute = ({ element }) => {
+    const token = localStorage.getItem("token"); 
+    return token ? element : <Navigate to="/login" />;
+};
+
 
 function App() {
     return (
@@ -28,7 +33,7 @@ function App() {
 
                 <div className="main-content">
                     <Routes>
-                        <Route path="/" element={
+                    <Route path="/" element={<PrivateRoute element={
                             <>
                                 <div style={{ marginBottom: "390px" }}> 
                                     <UncontrolledExample />
@@ -136,7 +141,7 @@ function App() {
                                 </div>
                                 <TestimonialsSection />
                             </>
-                        } />
+                         } />} />
                         
                     <Route path="/quiz" element={<Quiz />} />
                     <Route path="/roadmap" element={<Roadmap />} />

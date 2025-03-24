@@ -7,6 +7,7 @@ const router = express.Router();
 const JWT_SECRET = "your_secret_key";  // Change this to a strong secret
 const User = require("../models/User");
 
+
 // Fetch search history
 router.get("/history/:userId", async (req, res) => {
     try {
