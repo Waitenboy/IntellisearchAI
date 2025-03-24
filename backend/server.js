@@ -84,6 +84,8 @@ const transporter = nodemailer.createTransport({
     },
 });
 
+
+
 // Route to request OTP
 app.post("/api/request-otp", async (req, res) => {
     const { email } = req.body;
@@ -141,6 +143,28 @@ app.post("/api/verify-otp", async (req, res) => {
         res.json({ message: "Login successful", token, userId: user._id });
     } catch (error) {
         console.error("OTP Verification Error:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+
+app.put("/api/update-user", authenticateToken, async (req, res) => {
+    const { username, email, password } = req.body;
+    const userId = req.user.id; // ✅ Extract from `req.user`
+
+    try {
+        const user = await User.findById(userId);
+        if (!user) return res.status(404).json({ error: "User not found" });
+
+        // Update only provided fields
+        if (username) user.username = username;
+        if (email) user.email = email;
+        if (password) user.password = password; // Make sure to hash the password before saving!
+
+        await user.save();
+        res.json({ message: "Profile updated successfully!", user });
+    } catch (error) {
+        console.error("Profile Update Error:", error);
         res.status(500).json({ error: "Internal server error" });
     }
 });

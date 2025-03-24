@@ -6,9 +6,16 @@ const Profile = () => {
     const [searchCount, setSearchCount] = useState(0);
     const [quizCount, setQuizCount] = useState(0);
     const userId = localStorage.getItem("userId");
-    console.log("🟢 Stored userId:", userId);
-
+    // console.log("🟢 Stored userId:", userId);
+    const [isEditing, setIsEditing] = useState(false);
     const [user, setUser] = useState(null);
+    // const [user, setUser] = useState(null);
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    // const [isEditing, setIsEditing] = useState(false);
+    const [message, setMessage] = useState("");
+
     const fetchProfile = async () => {
         try {
             const token = localStorage.getItem("token");
@@ -54,6 +61,34 @@ const Profile = () => {
         .catch(err => console.error("Error fetching history:", err));
     }, [userId]);
     
+    const handleUpdate = async () => {
+        setMessage("");
+        try {
+            const response = await fetch("http://localhost:5000/api/update-user", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+                body: JSON.stringify({ username, email, password }),
+            });
+    
+            const data = await response.json();
+    
+            if (response.ok) {
+                // ✅ Refresh user data from server
+                await fetchProfile();
+    
+                setIsEditing(false);
+                setMessage("Profile updated successfully!");
+            } else {
+                setMessage(data.error || "Failed to update profile.");
+            }
+        } catch (error) {
+            console.error("Error updating profile:", error);
+            setMessage("Error updating profile.");
+        }
+    };
     
 
     const clearHistory = async () => {
@@ -127,21 +162,49 @@ const Profile = () => {
             {/* Left Section: Profile & Stats */}
             <div style={styles.leftSection}>
                 
-                {/* User Details */}
-                {user ? (
-                    <div style={styles.userDetails}>
-                        <div style={styles.detailsRow}>
-                            <p style={styles.label}><strong>Username:</strong></p>
-                            <p style={styles.value}>{user.username}</p>
-                        </div>
-                        <div style={styles.detailsRow}>
-                            <p style={styles.label}><strong>Email:</strong></p>
-                            <p style={styles.value}>{user.email}</p>
-                        </div>
-                    </div>
-                ) : (
-                    <p style={styles.loadingText}>Loading user details...</p>
-                )}
+            {user ? (
+        <div style={{ maxWidth: "400px", margin: "auto", textAlign: "left" }}>
+          <label><strong>Username:</strong></label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            disabled={!isEditing}
+            style={inputStyle}
+          />
+
+          <label><strong>Email:</strong></label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={!isEditing}
+            style={inputStyle}
+          />
+
+          <label><strong>New Password:</strong></label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            disabled={!isEditing}
+            placeholder="Enter new password (optional)"
+            style={inputStyle}
+          />
+
+          {!isEditing ? (
+            <button onClick={() => setIsEditing(true)} style={buttonStyle}>
+              Edit Profile
+            </button>
+          ) : (
+            <button onClick={handleUpdate} style={buttonStyle}>
+              Save Changes
+            </button>
+          )}
+        </div>
+      ) : (
+        <p>Loading user details...</p>
+      )}
     
                 {/* Award Message */}
                 {awardMessage && <p style={styles.awardMessage}>{awardMessage}</p>}
@@ -189,6 +252,23 @@ const Profile = () => {
     
     
     );
+};
+
+const inputStyle = {
+  width: "100%",
+  padding: "10px",
+  marginBottom: "10px",
+  borderRadius: "5px",
+  border: "1px solid #ccc",
+};
+
+const buttonStyle = {
+  backgroundColor: "#d63031",
+  color: "white",
+  padding: "10px",
+  border: "none",
+  borderRadius: "5px",
+  cursor: "pointer",
 };
 
 
