@@ -178,6 +178,53 @@ app.put("/api/update-user", authenticateToken, async (req, res) => {
     }
 });
 
+app.post("/api/quiz/next", async (req, res) => {
+    const { userId, topic, questionIndex } = req.body;
+
+    try {
+        const quizQuestions = await Quiz.find({ topic });
+        
+        if (!quizQuestions || quizQuestions.length === 0) {
+            return res.status(404).json({ error: "No quiz questions found" });
+        }
+
+        if (questionIndex >= quizQuestions.length) {
+            return res.json({ message: "Quiz completed", completed: true });
+        }
+
+        res.json({ question: quizQuestions[questionIndex] });
+    } catch (error) {
+        console.error("Error fetching quiz question:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+app.post("/api/quiz/answer", async (req, res) => {
+    const { userId, questionId, selectedAnswer, questionIndex } = req.body;
+
+    try {
+        const question = await Quiz.findById(questionId);
+        if (!question) {
+            return res.status(404).json({ error: "Question not found" });
+        }
+
+        const isCorrect = selectedAnswer === question.correctAnswer;
+        
+        // Save progress (optional)
+        await UserQuizProgress.updateOne(
+            { userId },
+            { $push: { answers: { questionId, selectedAnswer, isCorrect } } },
+            { upsert: true }
+        );
+
+        res.json({ isCorrect, correctAnswer: question.correctAnswer, nextQuestionIndex: questionIndex + 1 });
+    } catch (error) {
+        console.error("Error processing answer:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+
 
 app.post("/forum/post-question", async (req, res) => {
     try {
