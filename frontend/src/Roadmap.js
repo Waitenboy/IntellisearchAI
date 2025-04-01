@@ -4,8 +4,8 @@ import axios from "axios";
 import roadmap1 from './components/roadmap.gif';
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-import roadmapbg from "./components/roadmapbg.gif";
-import bgstatic from "./components/roadmapbg.jpg"
+import roadmapbg from "./components/roadmapbg1.gif";
+// import bgstatic from "./components/roadmapbg.jpg"
 
 function Roadmap() {
     const [topic, setTopic] = useState("");
