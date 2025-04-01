@@ -1,16 +1,11 @@
 
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import roadmap1 from './components/roadmap.gif';
-
-
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-
-
-
-
+import roadmapbg from "./components/roadmapbg.gif";
+import bgstatic from "./components/roadmapbg.jpg"
 
 function Roadmap() {
     const [topic, setTopic] = useState("");
@@ -23,7 +18,30 @@ function Roadmap() {
         window.scrollTo(0, 0); // Scroll to top when the component loads
     }, []);
 
-    const handleDownloadPDF = async () => {
+    const spinnerStyle = {
+        border: "4px solid rgba(255, 255, 255, 0.3)",
+        borderTop: "4px solid #333", // Darker color for the spinner
+        borderRadius: "50%",
+        width: "30px",
+        height: "30px",
+        animation: "spin 1s linear infinite",
+        marginRight: "10px",
+      };
+    
+      // Adding a <style> element for the keyframes directly in JSX
+      const styleElement = (
+        <style>
+          {`
+            @keyframes spin {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
+          `}
+        </style>
+      );
+    
+
+      const handleDownloadPDF = async () => {
         const roadmapElement = document.getElementById("roadmap-content");
         
         if (!roadmapElement) {
@@ -32,28 +50,48 @@ function Roadmap() {
         }
     
         try {
-            const canvas = await html2canvas(roadmapElement, { scale: 2 });
+            // Wait for custom fonts to be ready before rendering
+            await document.fonts.ready; 
+
+             // Create a temporary container with the background image
+             const clonedElement = roadmapElement.cloneNode(true);
+             clonedElement.style.position = "absolute";
+             clonedElement.style.left = "-9999px"; // Move it off-screen
+             clonedElement.style.backgroundImage = `url(${roadmapbg})`; // Use static JPG background
+             clonedElement.style.backgroundSize = "cover"; // Ensure full coverage
+             clonedElement.style.backgroundRepeat = "no-repeat";
+             clonedElement.style.backgroundPosition = "center"; // Center the background image
+
+                document.body.appendChild(clonedElement); // Add to DOM for rendering
+    
+            const canvas = await html2canvas(roadmapElement, { 
+                scale: 3, // Increase quality
+                backgroundColor: null, // Capture background image
+                useCORS: true, // Avoid cross-origin issues if the image is external
+            });
+
+            document.body.removeChild(clonedElement); // Clean up after rendering
+    
             const imgData = canvas.toDataURL("image/png");
-    
             const pdf = new jsPDF("p", "mm", "a4");
-            const imgWidth = 190; // A4 width
-            const pageHeight = 297; // A4 height in mm
-            const marginTop = 10; // Leave some space at the top
-            const imgHeight = (canvas.height * imgWidth) / canvas.width; // Maintain aspect ratio
+            const imgWidth = 190;
+            const pageHeight = 297;
+            const marginTop = 10;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
     
-            let yPosition = marginTop; // Start below the top margin
+            let yPosition = marginTop;
     
-            let currentPage = 1;
             while (yPosition < imgHeight) {
                 pdf.addImage(imgData, "PNG", 10, yPosition * -1 + marginTop, imgWidth, imgHeight);
-    
                 if (yPosition + pageHeight < imgHeight) {
                     pdf.addPage();
-                    yPosition += pageHeight; // Move to the next section
+                    yPosition += pageHeight;
                 } else {
-                    break; // Stop if all content fits
+                    break;
                 }
             }
+    
     
             pdf.save("Study_Roadmap.pdf");
     
@@ -62,7 +100,7 @@ function Roadmap() {
             alert("Failed to generate PDF. Please try again.");
         }
     };
-
+    
     const handleGenerateRoadmap = async () => {
         if (!topic.trim()) {
             setError("Please enter a study topic.");
@@ -145,7 +183,6 @@ function Roadmap() {
 
 
         </div>
-
     
             {/* Main Content */}
             <div style={{ padding: "20px", textAlign: "center", marginTop: "20px" }}>
@@ -179,47 +216,99 @@ function Roadmap() {
     
                 <button
                     onClick={handleGenerateRoadmap}
-                    style={{ padding: "10px", backgroundColor: "rgb(206, 101, 101)", color: "white", border: "none", cursor: "pointer" }}
+                    style={{
+                        padding: "10px",
+                        backgroundColor: "rgb(206, 101, 101)",
+                        color: "white",
+                        border: "none",
+                        cursor: "pointer",
+                        marginRight: "10px", // Adds space between the button and the spinner
+                      }}
                 >
                     Generate Roadmap
                 </button>
-                
-                {loading && <p>Generating roadmap...</p>}
-                {error && <p style={{ color: "red" }}>{error}</p>}
-                
-                                    {roadmap && (
-                        <div id="roadmap-content"
-                            style={{
-                                marginTop: "50px",
-                                textAlign: "left",
-                                maxWidth: "700px",
-                                margin: "auto",
-                                backgroundColor: "#f9f9f9",
-                                padding: "20px",
-                                borderRadius: "12px",
-                                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                fontSize: "16px",
-                                lineHeight: "1.8",
-                                color: "#333",
-                            }}
-                        >
-                            <h3
-                                style={{
-                                    textAlign: "center",
-                                    fontSize: "24px",
-                                    fontWeight: "bold",
-                                    color: "#444",
-                                    marginBottom: "15px",
-                                }}
-                            >
-                                📍 Your Personalized Study Roadmap
-                            </h3>
-                            <div dangerouslySetInnerHTML={{ __html: roadmap }} />
-                            
+                {styleElement}
+                {loading && (
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center", // Centers the spinner horizontally within its container
+      marginTop: "10px", // Adds spacing below the button
+    }}
+  >
+    <div style={spinnerStyle}></div>
+    {/* <p style={{ fontSize: "20px", color: "#333", marginLeft: "10px" }}>Generating roadmap...</p> */}
+  </div>
+)}
 
-                        </div>
-                        
-                    )}
+                {error && <p style={{ color: "red" }}>{error}</p>}
+                <div
+    style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: `url(${roadmapbg}) no-repeat center center/cover`,
+        padding: "40px 20px",
+    }}
+>
+    {roadmap && (
+        <div
+            id="roadmap-content"
+            style={{
+                textAlign: "left",
+                maxWidth: "850px",
+                background: "rgba(255, 255, 255, 0.45)", // Transparent white
+                backdropFilter: "blur(15px)", // Glassmorphism effect
+                padding: "30px",
+                borderRadius: "20px",
+                boxShadow: "0 10px 30px rgba(0, 0, 0, 0.2)", // Soft shadow
+                fontSize: "17px",
+                lineHeight: "1.8",
+                color: "black",
+                border: "1px solid rgba(255, 255, 255, 0.3)",
+                transition: "all 0.3s ease-in-out",
+                animation: "fadeIn 0.6s ease-out",
+            }}
+        >
+            <h3
+                style={{
+                    textAlign: "center",
+                    fontSize: "32px", // Slightly larger for prominence
+                    fontWeight: "bold",
+                    color: "rgb(0, 0, 0)", // Keeping black as requested
+                    marginBottom: "20px",
+                    letterSpacing: "1.5px", // Wider spacing for elegance
+                    // textTransform: "uppercase",
+                    textShadow: "4px 4px 12px rgba(0, 0, 0, 0.25)", // More prominent text shadow
+                    // fontFamily: "Arial, sans-serif", // Modern font
+                    lineHeight: "1.3", // Slightly tighter line height for a clean look
+                    letterSpacing: "2px", // Added a touch of refinement
+                    paddingBottom: "10px",
+                    borderBottom: "2px solid rgba(0, 0, 0, 0.2)", // Subtle underline effect for visual impact
+                }}
+            >
+                🚀 Your Personalized Study Roadmap
+            </h3>
+            <div
+                style={{
+                    padding: "15px 0",
+                    fontSize: "18px", // Slightly increased font size for readability
+                    color: "black",
+                    lineHeight: "1.8",
+                    // fontFamily: "Roboto, sans-serif", // Clean modern font
+                    letterSpacing: "0.5px", // Subtle letter spacing for better flow
+                    fontWeight: "400", // Regular weight for body text
+                    wordBreak: "break-word", // Ensure long words break properly
+                }}
+                dangerouslySetInnerHTML={{ __html: roadmap }}
+            />
+        </div>
+    )}
+</div>
+
+
                     {/* Download Button */}
                     <button
                                         onClick={handleDownloadPDF}
