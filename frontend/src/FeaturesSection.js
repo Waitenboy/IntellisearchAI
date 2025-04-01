@@ -22,14 +22,15 @@ function FeaturesSection() {
             justifyContent: "center" // Center content vertically
         }}>
            <h2 style={{
-                fontSize: "36px", // Bigger and bolder
+                fontSize: "60px", // Bigger and bolder
                 fontWeight: "bold",
                 // textTransform: "uppercase",
                 color: "black", // Eye-catching color
                 textShadow: "3px 3px 6px rgba(0, 0, 0, 0.2)",
                 letterSpacing: "1px",
                 marginBottom: "100px",
-                fontFamily: "monospace" // Modern font
+                fontFamily: "Rasa", // Modern font
+                // textTransform: "uppercase",
             }}>
                 🔓 Unlock Exclusive Features!
             </h2>
