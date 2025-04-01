@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import styled, { keyframes } from "styled-components";
-import quizbg from "./components/quizbg.gif";
+import quizbg from "./components/quizbg1.gif";
 
 
 const XP_BAR_MAX = 100; // XP needed for a level-up
@@ -60,7 +60,7 @@ const Container = styled.div`
 const Header = styled.div`
  margin-top: 60px; /* Push content down to avoid overlap */
   width: 100%;
-  background-color:rgb(43, 24, 84);
+  background-color:rgb(153, 44, 80);
   color: white;
   padding: 40px 0; /* Adjusted height */
   font-size: 45px;
@@ -95,27 +95,34 @@ const QuizContainer = styled.div`
   &:hover {
     transform: scale(1.02); /* Slight zoom on hover */
   }
-`;
-
-
-const OptionButton = styled.button`
-  padding: 12px;
-  margin: 5px;
-  border-radius: 8px;
-  width: 100%;
-  font-size: 16px;
-  background-color: ${({ selected, correct, incorrect }) =>
-    selected ? (correct ? "#28a745" : incorrect ? "#dc3545" : "#f8f9fa") : "#f8f9fa"};
-  color: ${({ selected }) => (selected ? "#fff" : "#000")};
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
-  transition: background-color 0.3s, transform 0.2s;
-  border: 2px solid transparent;
-
-  &:hover {
-    transform: scale(1.05);
-    border-color: ${({ selected }) => (selected ? "transparent" : "#ccc")};
+     /* Ensure text and content don't change on hover */
+  & p,
+  & h3,
+  & div {
+    font-weight: normal; 
+    transition: none !important; /* Disable hover transformations for text */
   }
 `;
+
+
+// const OptionButton = styled.button`
+//   padding: 12px;
+//   margin: 5px;
+//   border-radius: 8px;
+//   width: 100%;
+//   font-size: 16px;
+//   background-color: ${({ selected, correct, incorrect }) =>
+//     selected ? (correct ? "#28a745" : incorrect ? "#dc3545" : "#f8f9fa") : "#f8f9fa"};
+//   color: ${({ selected }) => (selected ? "#fff" : "#000")};
+//   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+//   transition: background-color 0.3s, transform 0.2s;
+//   border: 2px solid transparent;
+
+//   &:hover {
+//     transform: scale(1.05);
+//     border-color: ${({ selected }) => (selected ? "transparent" : "#ccc")};
+//   }
+// `;
 
 const ScoreText = styled.p`
   font-size: 20px;

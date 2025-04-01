@@ -245,12 +245,12 @@ function Roadmap() {
                 {error && <p style={{ color: "red" }}>{error}</p>}
                 <div
     style={{
-        minHeight: "100vh",
+        minHeight: roadmap ? "100vh" : "auto",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: `url(${roadmapbg}) no-repeat center center/cover`,
-        padding: "40px 20px",
+        background: roadmap ? `url(${roadmapbg}) no-repeat center center/cover` : "none",
+        padding: roadmap ? "40px 20px" : "0",
     }}
 >
     {roadmap && (
@@ -270,6 +270,7 @@ function Roadmap() {
                 border: "1px solid rgba(255, 255, 255, 0.3)",
                 transition: "all 0.3s ease-in-out",
                 animation: "fadeIn 0.6s ease-out",
+                zIndex: "10",
             }}
         >
             <h3
