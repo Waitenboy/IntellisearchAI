@@ -112,7 +112,7 @@ function Roadmap() {
         setRoadmap("");
 
         try {
-            const response = await axios.post("http://localhost:5000/api/roadmap", { 
+            const response = await axios.post("/api/roadmap", { 
                 topic, 
                 weeks 
             });

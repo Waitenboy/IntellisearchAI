@@ -182,7 +182,7 @@ function Quiz() {
         setLoading(true);
         setError(null);
         try {
-            const quizRes = await axios.post("http://localhost:5000/api/quiz", { topic: query });
+            const quizRes = await axios.post("/api/quiz", { topic: query });
             if (quizRes.data.success && quizRes.data.data && Array.isArray(quizRes.data.data)) {
                 setQuiz(quizRes.data.data.slice(0, 5));
             } else {
