@@ -56,9 +56,20 @@ function ResponsiveAppBar() {
 
   return (
     <>
-      <AppBar position="fixed" sx={{ backgroundColor: 'white', color: 'black', boxShadow: 2 }}>
+      <AppBar 
+  position="fixed" 
+  sx={{ 
+    backgroundColor: ' #121212',  // Dark matte background
+    color: ' #e0e0e0',             // Light text
+    boxShadow: 4,
+    backdropFilter: 'blur(8px)',
+    borderBottom: '1px solid rgba(255,255,255,0.05)',
+  }}
+>
+
         <Container maxWidth="xl">
-          <Toolbar disableGutters>
+        <Toolbar disableGutters sx={{  minHeight: '90px !important',  }}>
+
             {/* Left Side - Logo */}
             <SearchIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
             <Typography
@@ -72,7 +83,7 @@ function ResponsiveAppBar() {
                 fontFamily: 'monospace',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
-                color: 'black',
+                color: 'white',
                 textDecoration: 'none',
               }}
             >
@@ -85,29 +96,85 @@ function ResponsiveAppBar() {
                 <MenuIcon />
               </IconButton>
               <Menu
-                anchorEl={anchorElNav}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{ display: { xs: 'block', md: 'none' } }}
+                sx={{ 
+                  mt: '45px',
+                  '& .MuiPaper-root': {
+                    backgroundColor: '#1e1e1e',
+                    color: '#e0e0e0',
+                  }
+                }}
+                anchorEl={anchorElUser}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
               >
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={() => handleNavigation(page)}>
-                    <Typography textAlign="center">{page}</Typography>
+                {settings.map((setting) => (
+                  <MenuItem 
+                    key={setting} 
+                    onClick={handleCloseUserMenu}
+                    sx={{
+                      '&:hover': {
+                        backgroundColor: '#2e2e2e',
+                      }
+                    }}
+                  >
+                    <NavLink 
+                      to={`/${setting.toLowerCase()}`} 
+                      style={{ textDecoration: 'none', color: '#e0e0e0' }}
+                    >
+                      {setting}
+                    </NavLink>
                   </MenuItem>
                 ))}
+                <MenuItem 
+                  onClick={handleLogout}
+                  sx={{
+                    '&:hover': {
+                      backgroundColor: '#2e2e2e',
+                    }
+                  }}
+                >
+                  Logout
+                </MenuItem>
               </Menu>
+
             </Box>
 
             {/* Desktop Menu */}
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            <Box 
+              sx={{ 
+                flexGrow: 1, 
+                display: { xs: 'none', md: 'flex' },
+                justifyContent: 'flex-start',   // Slightly left
+                alignItems: 'center',
+                ml: 25, // Shift a bit from left
+              }}
+            >
+
+
               {pages.map((page) => (
                 <Button 
-                  key={page} 
-                  onClick={() => handleNavigation(page)}
-                  sx={{ my: 2, color: 'black', textTransform: 'none' }}
-                >
-                  {page}
-                </Button>
+                key={page} 
+                onClick={() => handleNavigation(page)}
+                sx={{ 
+                  my: 2,
+                  mx: 2.5, 
+                  color: 'white', 
+                  display: { s: 'none', md: 'flex' },
+                  fontFamily: 'monospace',
+                  fontWeight: 700,
+                  fontSize: '1.1rem',
+                  letterSpacing: '.3rem',
+                  textDecoration: 'none',
+                  textTransform: 'none',
+                  '&:hover': {
+                    backgroundColor: '#2e2e2e',  // Dark grey hover
+                  }
+                }}
+                
+              >
+                {page}
+              </Button>
+              
               ))}
             </Box>
 
@@ -137,9 +204,20 @@ function ResponsiveAppBar() {
                   </Menu>
                 </>
               ) : (
-                <Button component={NavLink} to="/signup" sx={{ color: 'black', textTransform: 'none' }}>
-                  Login / Signup
-                </Button>
+                <Button 
+                    component={NavLink} 
+                    to="/signup" 
+                    sx={{ 
+                      color: 'white', 
+                      textTransform: 'none',
+                      '&:hover': {
+                        backgroundColor: '#2e2e2e',
+                      }
+                    }}
+                  >
+                    Login / Signup
+                  </Button>
+
               )}
             </Box>
           </Toolbar>

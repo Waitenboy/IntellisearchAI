@@ -1,54 +1,61 @@
-/* Navbar Styling */
+/* Dark Navbar */
 .navbar {
-  position: fixed;  /* Keeps it at the top */
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;  /* Full width */
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #edf1f5 !important; /* Ensures a solid background */
-  padding: 15px 30px;
-  color: rgb(0, 0, 0);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1000;  /* Ensures it stays above other content */
+  padding: 14px 40px;
+  background-color: rgba(20, 20, 20, 0.85); /* Matte black base */
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  transition: all 0.3s ease-in-out;
 }
 
-/* Optional: Blur effect for a sleek look */
-.navbar {
-  backdrop-filter: blur(10px);
-  background-color: rgba(237, 241, 245, 0.9); /* Slight transparency */
-}
-
+/* Logo */
 .logo {
-  font-size: 22px;
-  font-weight: bold;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: 'monospace';
+  color: #ffffff;
 }
 
+/* Navigation Links */
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 26px;
   margin: 0;
   padding: 0;
 }
 
 .nav-links li {
-  display: inline;
+  display: flex;
+  align-items: center;
 }
 
 .nav-links a {
   text-decoration: none;
-  color: rgb(0, 0, 0);
   font-size: 16px;
-  transition: color 0.3s;
+  font-weight: 500;
+  font-family: 'monospace';
+  color: #ccc;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
 }
 
 .nav-links a:hover {
-  color: #e68080;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #201919; /* Soft highlight */
 }
 
-/* Ensures content starts below the navbar */
+/* Responsive Space for Content */
 .main-content {
-  padding-top: 80px; /* Adjust this based on navbar height */
+  padding-top: 90px;
+  color: #eaeaea; /* Light text for content on dark bg */
 }

@@ -333,8 +333,9 @@ const SearchComponent = () => {
         style={{
             padding: "12px 20px",
             fontSize: "16px",
-            backgroundColor: "#bb7777",
-            color: "#fff",
+            background: "linear-gradient(135deg, #FF416C, #FF4B2B)",
+color: "#fff",
+
             border: "none",
             borderRadius: "5px",
             cursor: query.trim() ? "pointer" : "not-allowed",
@@ -421,39 +422,67 @@ const styles = {
         fontSize: "14px", // Slightly smaller font
         cursor: "pointer",
         marginLeft: "8px", // Slightly reduced margin
-        backgroundColor: "#bb7777",
+        background: "linear-gradient(135deg, #FF416C, #FF4B2B)",
+color: "#fff",
+
     },
     
     
     dropdown: { padding: "8px", fontSize: "16px", cursor: "pointer", marginLeft: "10px" },
     container: {
         fontFamily: "monospace",
-        background: "linear-gradient(135deg,rgb(247, 247, 247),rgb(193, 199, 204))",
+        background: "rgba(255, 255, 255, 0.2)", // semi-transparent white
+        backdropFilter: "blur(10px)", // adds a blur behind the box
+        WebkitBackdropFilter: "blur(10px)", // for Safari support
         padding: "30px",
-        borderRadius: "10px",
-        maxWidth: "700px",
+        borderRadius: "16px",
+        maxWidth: "900px",
         margin: "40px auto",
-        boxShadow: "0px 4px 8px rgba(0,0,0,0.2)",
+        boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)", // soft modern shadow
+        border: "1px solid rgba(255, 255, 255, 0.18)", // light border
     },
+    
     searchBox: {
         width: "100%",
-        padding: "15px",
-        fontSize: "18px",
-        borderRadius: "8px",
-        border: "1px solid #ccc",
-        marginBottom: "15px",
+        padding: "14px 18px",
+        fontSize: "16px",
+        fontWeight: 500,
+        borderRadius: "14px",
+        border: "1px solid rgba(255, 255, 255, 0.2)",
+        backgroundColor: "rgba(255, 255, 255, 0.1)",
+        color: "white",
+        outline: "none",
+        backdropFilter: "blur(8px)",
+        WebkitBackdropFilter: "blur(8px)",
+        marginBottom: "24px",
+        transition: "all 0.3s ease",
+        boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
+        letterSpacing: "0.5px",
+        caretColor: "#fff",
+        "::placeholder": {
+          color: "rgba(255, 255, 255, 0.5)",
+        }
     },
     searchButton: {
         width: "100%",
-        padding: "12px",
-        fontSize: "18px",
-        backgroundColor: "#bb7777",
-        color: "white",
+        padding: "14px",
+        fontSize: "16px",
+        fontWeight: 600,
+        background: "linear-gradient(135deg, #FF416C, #FF4B2B)",
+        color: "#fff",
         border: "none",
-        borderRadius: "5px",
+        borderRadius: "14px",
         cursor: "pointer",
-        transition: "background 0.3s",
+        transition: "transform 0.3s ease, box-shadow 0.3s ease",
+        boxShadow: "0 6px 20px rgba(0, 0, 0, 0.3)",
+        letterSpacing: "0.7px",
+        "&:hover": {
+          transform: "translateY(-2px)",
+          boxShadow: "0 10px 24px rgba(0, 0, 0, 0.5)",
+          background: "linear-gradient(135deg, #2c2c2c, #0f0f0f)"
+        }
     },
+        
     micButton: {
         marginLeft: "8px",
         padding: "8px",  // Reduced padding for a smaller button
@@ -469,8 +498,9 @@ const styles = {
         width: "100%",
         padding: "12px",
         fontSize: "18px",
-        backgroundColor: "#bb7777",
-        color: "white",
+        background: "linear-gradient(135deg, #FF416C, #FF4B2B)",
+color: "#fff",
+
         border: "none",
         borderRadius: "5px",
         cursor: "pointer",

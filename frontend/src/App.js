@@ -1,5 +1,5 @@
 
-import React from "react";
+import React,{ useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate, Link } from "react-router-dom";
 import ResponsiveAppBar from "./Navbar";
 import SearchComponent from "./SearchComponent";
@@ -24,6 +24,35 @@ const PrivateRoute = ({ element }) => {
     return token ? element : <Navigate to="/login" />;
 };
 
+function SplineBackground() {
+    useEffect(() => {
+      const script = document.createElement("script");
+      script.type = "module";
+      script.src = "https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js";
+      script.async = true;
+      document.body.appendChild(script);
+  
+      return () => {
+        document.body.removeChild(script);
+      };
+    }, []);
+    return (
+        <spline-viewer
+          style={{
+            position: 'absolute',
+            top: '80px',
+            left: 0,
+            width: '100%',
+            height: '100%',
+            transform: 'scale(1.3)',
+            zIndex: -1
+          }}
+          url="https://prod.spline.design/uAysLqXiHtbCLVm7/scene.splinecode"
+        />
+      );
+    }  
+
+
 
 function App() {
     return (
@@ -35,13 +64,15 @@ function App() {
                     <Routes>
                     <Route path="/" element={
                             <>
-                                <div style={{ marginBottom: "390px" }}> 
+                                {/* <div style={{ marginBottom: "390px" }}> 
                                     <UncontrolledExample />
-                                </div>
-                                
-                                <div className="content" style={{ padding: "60px" }}>
+                                </div> */}
+                                <SplineBackground />
+                               
+                                <div className="content" style={{ padding: "60px", marginTop: "780px" }}>
+
                                     <div className="container">
-                                    <h1 style={{ 
+                                    {/* <h1 style={{ 
                                                 fontWeight: "bold", 
                                                 fontSize: "40px", 
                                                 fontFamily: "monospace", 
@@ -59,11 +90,12 @@ function App() {
                                                 fontWeight: "500" 
                                             }}>
                                                 Begin searching now!
-                                            </p>
+                                            </p> */}
 
                                         
                                         <SearchComponent />
                                         
+     
                                         <div 
                                         style={{ 
                                             width: "100%", 
@@ -88,7 +120,10 @@ function App() {
                                                     marginTop: "-80px" // Moves it upward
                                                 }} 
                                             />
-
+                                            <SplineBackground
+        url="https://prod.spline.design/BJrpN7mrT5wECwTc/scene.splinecode"
+        topOffset="1500px" // optional: control positioning
+      />
 
                                             <h2 
                                                 style={{ 
