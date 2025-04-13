@@ -67,7 +67,7 @@ const imageRef = useRef(null);
           style={{
             position: "absolute",
             bottom: "5%", // Adjust spacing from the bottom
-            left: "5%", // Adjust spacing from the left
+            left: "3%", // Adjust spacing from the left
             color: "white",
             fontSize: "48px",
             fontWeight: "bold",
