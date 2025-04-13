@@ -46,14 +46,23 @@ const imageRef = useRef(null);
   style={{
     backgroundColor: "black", // Solid black background
     width: "100vw", // Ensures full width
-    height: "70vh", // Makes it full screen height
+    height: "80vh", // Makes it full screen height
     position: "relative", // Needed for absolute positioning of text
   }}
 >
+
 <spline-viewer 
-        url="https://prod.spline.design/8gh4ICe1CqUM7Ngt/scene.splinecode" 
-        style={{ width: '100%', height: '500px' }} // Adjust size as needed
-      ></spline-viewer>
+  url="https://prod.spline.design/9uSA3tFSQTaKcCdU/scene.splinecode" 
+  style={{
+    width: '100%', 
+    height: '100%',  // Full screen height
+    overflow: 'hidden' , // Prevents overflow
+    pointerEvents: 'none',
+    transform: 'scale(1.0)'
+  }}  
+  
+></spline-viewer>
+
         {/* "About Us" Text at Bottom Left */}
         <div
           style={{

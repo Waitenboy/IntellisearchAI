@@ -167,9 +167,9 @@ function App() {
                                     </div>
                                 </div>
                                 
-                                <div style={{ backgroundColor: "#ffffff" }}>
+                                {/* <div style={{ backgroundColor: "#ffffff" }}>
                                     <TestimonialsSection />
-                                    </div>
+                                    </div> */}
 
                             </>
                          } />
