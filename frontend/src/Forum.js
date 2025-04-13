@@ -51,9 +51,17 @@ const Forum = () => {
     };
 
     // **Search Logic: Filter questions based on search query**
+    // const filteredQuestions = questions.filter(q =>
+    //     q.question.toLowerCase().includes(searchQuery.toLowerCase())
+    // );
+    // **Enhanced Search Logic: Filter questions based on search query or their replies**
     const filteredQuestions = questions.filter(q =>
-        q.question.toLowerCase().includes(searchQuery.toLowerCase())
+        q.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        q.replies.some(reply =>
+            reply.replyText.toLowerCase().includes(searchQuery.toLowerCase())
+        )
     );
+
 
     return (
         <div style={{ fontFamily: "monospace" }}>
