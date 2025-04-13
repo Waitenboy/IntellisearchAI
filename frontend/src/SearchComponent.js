@@ -272,8 +272,18 @@ const SearchComponent = () => {
     
     return (
         <div style={styles.container}>
+            <p style={{ color: "white", fontSize: "20px" }}>Begin searching now!</p>
+
             {/* Search Bar & Speak Icon in a Row */}
     <div style={{ display: "flex", alignItems: "center", gap: "10px", justifyContent: "center" }}>
+    <style>
+    {`
+      input::placeholder {
+        color: white;
+        opacity: 1;
+      }
+    `}
+  </style>
         <input
             type="text"
             value={query}
@@ -476,9 +486,9 @@ const styles = {
         transition: "all 0.3s ease",
         boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
         letterSpacing: "0.5px",
-        caretColor: "#fff",
+        caretColor: "white",
         "::placeholder": {
-          color: "rgba(255, 255, 255, 0.5)",
+          color: "rgb(255, 255, 255)",
         }
     },
     searchButton: {
