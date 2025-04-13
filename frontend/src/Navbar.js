@@ -8,7 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { NavLink, useNavigate } from 'react-router-dom';
 import avatarImg from "./avatar.jpg";
 
-const pages = ['Home', 'About', 'Contact', 'Forum'];  // Added 'Forum'
+const pages = ['Home', 'About', 'Forum', 'Contact'];  // Added 'Forum'
 const settings = ["Profile"];
 
 function ResponsiveAppBar() {
