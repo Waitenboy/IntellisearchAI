@@ -4,7 +4,9 @@ import axios from "axios";
 import roadmap1 from './components/roadmap.gif';
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-import roadmapbg from "./components/roadmapbg1.gif";
+import roadmapbg from "./components/roadmap.jpg";
+import roadmaping from "./roadmapicon.json";
+import Lottie from "lottie-react";
 // import bgstatic from "./components/roadmapbg.jpg"
 
 function Roadmap() {
@@ -129,65 +131,111 @@ function Roadmap() {
 
     return (
         <div>
+            
+            
             {/* Full-width Heading */}
-            <div style={{
-                width: "100vw",
-                height: "100px", // Increased height
-                backgroundColor: "rgb(206, 101, 101)",
-                color: "white",
-                padding: "25px 20px", // Increased padding
-                textAlign: "left",
-                fontSize: "40px",
-                fontWeight: "bold",
-                position: "fixed",
-                top: "70px",
-                left: "0",
-                zIndex: "1000"
-            }}>
+            <div
+  style={{
+    width: "100vw",
+    background: "linear-gradient(135deg, #0d0d0d, #1f1a2f, #2e2644)",
+    color: "#ffffff",
+    padding: "20px 40px",
+    position: "fixed",
+    top: "90px",
+    left: "0",
+    zIndex: "1000",
+    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
+    borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+    display: "flex",
+    justifyContent: "center", // Center content horizontally
+    height:"150px"
+  }}
+>
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontFamily: "Iceland",
+      gap: "20px",
+    }}
+  >
+    {/* Optional Lottie animation */}
+    {/* 
+    <Lottie 
+      animationData={roadmaping} 
+      style={{ width: 100, height: 100 }} 
+    /> 
+    */}
 
-                Roadmaps
-            </div>
-
-             {/* Section with Image on Left & Description on Right */}
-        <div style={{ 
-            display: "flex", 
-            alignItems: "center", 
-            justifyContent: "center", 
-            marginTop: "100px", 
-            padding: "20px"
-        }}>
-            {/* Image */}
-            <img 
-                src={roadmap1} 
-                alt="Roadmap Illustration" 
-                style={{ width: "40%", borderRadius: "10px", marginRight: "20px" }}
-            />
-
-            {/* Description */}
-<div style={{ width: "50%", padding: "20px", backgroundColor: "#f9f9f9", borderRadius: "10px", boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)" }}>
-    <h3 style={{ fontSize: "35px", marginBottom: "15px", fontWeight: "bold", color: "#333" }}>
-        📚 Plan Your Learning Journey
-    </h3>
-
-    <h4 style={{ fontSize: "22px", marginBottom: "10px", color: "#444" }}>
-        How It Works:
-    </h4>
-    <ul style={{ fontSize: "17px", lineHeight: "1.8", paddingLeft: "25px", color: "#555" }}>
-        <li><strong>📌 Enter a Topic:</strong> Choose any subject you want to learn, e.g., <em>Machine Learning</em> or <em>Web Development</em>.</li>
-        <li><strong>⏳ Select a Duration and Difficulty:</strong> Pick the number of weeks you want to complete your study in and the level of understanding.</li>
-        <li><strong>📅 Generate Your Roadmap:</strong> Get a structured, step-by-step plan to cover key concepts efficiently.</li>
-    </ul>
-
-    <p style={{ fontSize: "17px", marginTop: "20px", fontWeight: "bold", color: "#222", textAlign: "center" }}>
-        🚀 Stay focused, organized, and make consistent progress toward your learning goals!
-    </p>
+    <div
+      style={{
+        fontSize: "50px",
+        fontWeight: "700",
+        lineHeight: "1",
+      }}
+    >
+      🚀 Roadmaps
+    </div>
+  </div>
 </div>
 
 
-        </div>
-    
+
+             {/* Section with Image on Left & Description on Right */}
+             <div style={{ 
+    display: "flex", 
+    alignItems: "center", 
+    justifyContent: "center", 
+    marginTop: "200px", 
+    padding: "40px",
+    // background: "linear-gradient(135deg, #0d0d0d, #1f1a2f, #2e2644)",
+    borderRadius: "20px",
+    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+    maxWidth: "1200px",
+    marginLeft: "auto",
+    marginRight: "auto"
+}}>
+    {/* Image */}
+    <img 
+        src={roadmap1} 
+        alt="Roadmap Illustration" 
+        style={{ width: "40%", borderRadius: "15px", marginRight: "30px", boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)" }}
+    />
+
+    {/* Description */}
+    <div style={{ 
+        width: "60%", 
+        padding: "30px", 
+        background: "linear-gradient(135deg, #0d0d0d, #1f1a2f, #2e2644)", 
+        borderRadius: "15px", 
+        boxShadow: "0 8px 16px rgba(0, 0, 0, 0.3)",
+        backdropFilter: "blur(12px)",
+        color: "#ffffff",
+        fontFamily: "Iceland"
+    }}>
+        <h3 style={{ fontSize: "32px", marginBottom: "20px", fontWeight: "bold" }}>
+            📚 Plan Your Learning Journey
+        </h3>
+
+        <h4 style={{ fontSize: "22px", marginBottom: "15px", color: "#ddd" }}>
+            How It Works:
+        </h4>
+
+        <ul style={{ fontSize: "17px", lineHeight: "1.8", paddingLeft: "25px", color: "#ccc" }}>
+            <li><strong>📌 Enter a Topic:</strong> Choose any subject you want to learn, e.g., <em>Machine Learning</em> or <em>Web Development</em>.</li>
+            <li><strong>⏳ Select a Duration and Difficulty:</strong> Pick the number of weeks you want to complete your study in and the level of understanding.</li>
+            <li><strong>📅 Generate Your Roadmap:</strong> Get a structured, step-by-step plan to cover key concepts efficiently.</li>
+        </ul>
+
+        <p style={{ fontSize: "17px", marginTop: "25px", fontWeight: "bold", color: "#fff", textAlign: "center" }}>
+            🚀 Stay focused, organized, and make consistent progress toward your learning goals!
+        </p>
+    </div>
+</div>
+
             {/* Main Content */}
-            <div style={{ padding: "20px", textAlign: "center", marginTop: "20px" }}>
+            <div style={{ padding: "20px", textAlign: "center", marginTop: "20px", marginBottom:"150px" }}>
             <input
                     type="text"
                     placeholder="Enter a topic (e.g., Machine Learning)"
@@ -231,7 +279,7 @@ function Roadmap() {
                     onClick={handleGenerateRoadmap}
                     style={{
                         padding: "10px",
-                        backgroundColor: "rgb(206, 101, 101)",
+                        backgroundColor: "#2e2644",
                         color: "white",
                         border: "none",
                         cursor: "pointer",
@@ -257,69 +305,75 @@ function Roadmap() {
 
                 {error && <p style={{ color: "red" }}>{error}</p>}
                 <div
-    style={{
-        minHeight: roadmap ? "100vh" : "auto",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: roadmap ? `url(${roadmapbg}) no-repeat center center/cover` : "none",
-        padding: roadmap ? "40px 20px" : "0",
-    }}
+   style={{
+    minHeight: roadmap ? "100vh" : "auto",
+    width: "100vw", // ensure full screen width
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    background: roadmap
+      ? `url(${roadmapbg}) no-repeat center center/cover`
+      : "none",
+    padding: roadmap ? "40px 20px" : "0",
+    margin: "0",
+    overflow: "hidden", // avoids unwanted scrollbars
+    backgroundAttachment: "fixed", // optional: makes background fixed on scroll for a parallax-like effect
+  }}
+  
 >
-    {roadmap && (
-        <div
-            id="roadmap-content"
-            style={{
-                textAlign: "left",
-                maxWidth: "850px",
-                background: "rgba(255, 255, 255, 0.45)", // Transparent white
-                backdropFilter: "blur(15px)", // Glassmorphism effect
-                padding: "30px",
-                borderRadius: "20px",
-                boxShadow: "0 10px 30px rgba(0, 0, 0, 0.2)", // Soft shadow
-                fontSize: "17px",
-                lineHeight: "1.8",
-                color: "black",
-                border: "1px solid rgba(255, 255, 255, 0.3)",
-                transition: "all 0.3s ease-in-out",
-                animation: "fadeIn 0.6s ease-out",
-                zIndex: "10",
-            }}
-        >
-            <h3
-                style={{
-                    textAlign: "center",
-                    fontSize: "32px", // Slightly larger for prominence
-                    fontWeight: "bold",
-                    color: "rgb(0, 0, 0)", // Keeping black as requested
-                    marginBottom: "20px",
-                    letterSpacing: "1.5px", // Wider spacing for elegance
-                    // textTransform: "uppercase",
-                    textShadow: "4px 4px 12px rgba(0, 0, 0, 0.25)", // More prominent text shadow
-                    // fontFamily: "Arial, sans-serif", // Modern font
-                    lineHeight: "1.3", // Slightly tighter line height for a clean look
-                    letterSpacing: "2px", // Added a touch of refinement
-                    paddingBottom: "10px",
-                    borderBottom: "2px solid rgba(0, 0, 0, 0.2)", // Subtle underline effect for visual impact
-                }}
-            >
-                🚀 Your Personalized Study Roadmap
-            </h3>
-            <div
-                style={{
-                    padding: "15px 0",
-                    fontSize: "18px", // Slightly increased font size for readability
-                    color: "black",
-                    lineHeight: "1.8",
-                    // fontFamily: "Roboto, sans-serif", // Clean modern font
-                    letterSpacing: "0.5px", // Subtle letter spacing for better flow
-                    fontWeight: "400", // Regular weight for body text
-                    wordBreak: "break-word", // Ensure long words break properly
-                }}
-                dangerouslySetInnerHTML={{ __html: roadmap }}
-            />
-        </div>
-    )}
+{roadmap && (
+  <div
+    id="roadmap-content"
+    style={{
+      textAlign: "left",
+      maxWidth: "1000px",
+      background: "rgba(20, 20, 30, 0.7)", // Slightly more opaque for readability
+      backdropFilter: "blur(20px)",
+      padding: "40px",
+      borderRadius: "24px",
+      boxShadow: "0 12px 40px rgba(0, 0, 0, 0.6)",
+      fontSize: "18px",
+      lineHeight: "2",
+      color: "#f0f0f0",
+      border: "1px solid rgba(255, 255, 255, 0.1)",
+      transition: "all 0.3s ease-in-out",
+      animation: "fadeIn 0.6s ease-out",
+      zIndex: "10",
+      fontFamily: "Iceland, sans-serif",
+    }}
+  >
+    <h3
+      style={{
+        textAlign: "center",
+        fontSize: "40px",
+        fontWeight: "bold",
+        color: "#ffffff",
+        marginBottom: "25px",
+        letterSpacing: "2px",
+        textShadow: "2px 2px 12px rgba(255, 255, 255, 0.15)",
+        paddingBottom: "12px",
+        borderBottom: "2px solid rgba(255, 255, 255, 0.1)",
+      }}
+    >
+      🚀 Your Personalized Study Roadmap
+    </h3>
+
+    <div
+      style={{
+        padding: "20px 0",
+        fontSize: "20px",
+        color: "#e0e0e0",
+        lineHeight: "2",
+        letterSpacing: "0.5px",
+        fontWeight: "400",
+        wordBreak: "break-word",
+      }}
+      dangerouslySetInnerHTML={{ __html: roadmap }}
+    />
+  </div>
+)}
+
+
 </div>
 
 
@@ -329,7 +383,7 @@ function Roadmap() {
                                         style={{
                                             marginTop: "20px",
                                             padding: "10px 20px",
-                                            backgroundColor: "rgb(206, 101, 101)",
+                                            backgroundColor: "#2e2644",
                                             color: "white",
                                             border: "none",
                                             cursor: "pointer",

@@ -80,7 +80,7 @@ const Header = styled.div`
 
 
 const QuizContainer = styled.div`
-  padding: 24px;
+  padding: 44px;
   width: 60%;
   max-width: 900px;
   margin: 80px auto 20px auto; /* Reduced spacing */
