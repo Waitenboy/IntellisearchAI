@@ -684,9 +684,9 @@ app.post("/api/translate", async (req, res) => {
 const marked = require("marked"); // Import Markdown parser
 
 app.post("/api/roadmap", async (req, res) => {
-    const { topic, weeks } = req.body;
+    const { topic, weeks, difficulty } = req.body;
 
-    if (!topic || !weeks) {
+    if (!topic || !weeks ) {
         return res.status(400).json({ error: "Topic and weeks are required" });
     }
 
@@ -696,20 +696,37 @@ app.post("/api/roadmap", async (req, res) => {
                 {
                     parts: [
                         {
-                            text: `Provide a well-structured and properly formatted study roadmap for learning ${topic} within ${weeks} weeks. 
-                            Divide the roadmap into ${weeks} weekly sections, with key subtopics covered each week. 
-                            Ensure the plan is sequential and progressive. Avoid starting with a preface like "Here is the roadmap"; start the roadmap directly. 
-                            Generate anywhere between 30-40 steps in total, evenly spread across the weeks. Format using proper headings and bullet points.
-                            Follow this format:
-                            (bold)Week 1: <Week 1 title>(/bold)\n
-                            (bullet points)
-                            (bold)<subtopic> :(/bold) <a concise overview of the subtopic in no more than 10 words> \n
-                            (bold)<subtopic> :(/bold) <a concise overview of the subtopic in no more than 10 words> \n
-                            ....
-                            (bold)Week 2: <Week 1 title>(/bold)\n
-                            ....so on
+                            // text: `Provide a well-structured and properly formatted study roadmap for learning ${topic} within ${weeks} weeks. 
+                            // Divide the roadmap into ${weeks} weekly sections, with key subtopics covered each week. 
+                            // Ensure the plan is sequential and progressive. Avoid starting with a preface like "Here is the roadmap"; start the roadmap directly. 
+                            // Generate anywhere between 30-40 steps in total, evenly spread across the weeks. Format using proper headings and bullet points.
+                            // Follow this format:
+                            // (bold)Week 1: <Week 1 title>(/bold)\n
+                            // (bullet points)
+                            // (bold)<subtopic> :(/bold) <a concise overview of the subtopic in no more than 10 words> \n
+                            // (bold)<subtopic> :(/bold) <a concise overview of the subtopic in no more than 10 words> \n
+                            // ....
+                            // (bold)Week 2: <Week 1 title>(/bold)\n
+                            // ....so on
 
-                            `
+                            // `
+                            text: `You are a study guide generator. Provide a well-structured and properly formatted study roadmap for learning ${topic} within ${weeks} weeks for a ${difficulty.toLowerCase()} level learner.
+                                Divide the roadmap into ${weeks} weekly sections, with key subtopics covered each week.
+                                Ensure the plan is sequential and progressive. Avoid starting with a preface like "Here is the roadmap"; start the roadmap directly.
+                                Generate anywhere between 30-40 steps in total, evenly spread across the weeks.
+                                Tailor the content to suit a ${difficulty.toLowerCase()} level understanding.
+
+                                Format using proper headings and bullet points.
+                                Follow this format:
+                                (bold)Week 1: <Week 1 title>(/bold)\n
+                                (bullet points)
+                                (bold)<subtopic> :(/bold) <a concise overview of the subtopic in no more than 10 words> \n
+                                (bold)<subtopic> :(/bold) <a concise overview of the subtopic in no more than 10 words> \n
+                                ....
+                                (bold)Week 2: <Week 2 title>(/bold)\n
+                                ....so on
+                                `
+
                         }
                     ]
                 }

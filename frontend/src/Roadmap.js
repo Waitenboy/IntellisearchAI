@@ -10,6 +10,7 @@ import roadmapbg from "./components/roadmapbg1.gif";
 function Roadmap() {
     const [topic, setTopic] = useState("");
     const [weeks, setWeeks] = useState(4); // Default to 4 weeks
+    const [difficulty, setDifficulty] = useState("Beginner");
     const [roadmap, setRoadmap] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -114,7 +115,8 @@ function Roadmap() {
         try {
             const response = await axios.post("http://localhost:5000/api/roadmap", { 
                 topic, 
-                weeks 
+                weeks ,
+                difficulty
             });
 
             setRoadmap(response.data.roadmap);
@@ -172,7 +174,7 @@ function Roadmap() {
     </h4>
     <ul style={{ fontSize: "17px", lineHeight: "1.8", paddingLeft: "25px", color: "#555" }}>
         <li><strong>📌 Enter a Topic:</strong> Choose any subject you want to learn, e.g., <em>Machine Learning</em> or <em>Web Development</em>.</li>
-        <li><strong>⏳ Select a Duration:</strong> Pick the number of weeks you want to complete your study in.</li>
+        <li><strong>⏳ Select a Duration and Difficulty:</strong> Pick the number of weeks you want to complete your study in and the level of understanding.</li>
         <li><strong>📅 Generate Your Roadmap:</strong> Get a structured, step-by-step plan to cover key concepts efficiently.</li>
     </ul>
 
@@ -213,6 +215,17 @@ function Roadmap() {
                         </option>
                     ))}
                 </select>
+
+                <select
+                value={difficulty}
+                onChange={(e) => setDifficulty(e.target.value)}
+                style={{ padding: "10px", marginRight: "10px" }}
+                >
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+                </select>
+
     
                 <button
                     onClick={handleGenerateRoadmap}
