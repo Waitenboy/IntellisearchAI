@@ -28,21 +28,32 @@ const imageRef = useRef(null);
       }
     };
   }, []);
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.type = 'module';
+    script.src = 'https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js';
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script); // Clean up when component unmounts
+    };
+  }, []);
 
   return (
     <div style={{ width: "100%", overflowX: "hidden" }}>
       {/* Background Image Section */}
       <div
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          width: "100vw", // Ensures full width
-          height: "70vh", // Makes it full screen height
-          position: "relative", // Needed for absolute positioning of text
-        }}
-      >
+  style={{
+    backgroundColor: "black", // Solid black background
+    width: "100vw", // Ensures full width
+    height: "70vh", // Makes it full screen height
+    position: "relative", // Needed for absolute positioning of text
+  }}
+>
+<spline-viewer 
+        url="https://prod.spline.design/8gh4ICe1CqUM7Ngt/scene.splinecode" 
+        style={{ width: '100%', height: '500px' }} // Adjust size as needed
+      ></spline-viewer>
         {/* "About Us" Text at Bottom Left */}
         <div
           style={{
@@ -58,6 +69,7 @@ const imageRef = useRef(null);
         >
           About Us
         </div>
+       
       </div>
 
       {/* About Content Section (Image on Left, Text on Right) */}

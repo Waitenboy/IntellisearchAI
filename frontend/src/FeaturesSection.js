@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 // import { FaUserCircle } from "react-icons/fa";
 // import { GiAchievement } from "react-icons/gi";
 // import { MdHistoryEdu } from "react-icons/md";
@@ -8,6 +8,16 @@ import badge from "./components/badge.json";
 import history from "./components/history.json";
 
 function FeaturesSection() {
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.type = 'module';
+        script.src = 'https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js';
+        document.body.appendChild(script);
+    
+        return () => {
+          document.body.removeChild(script); // Clean up when component unmounts
+        };
+      }, []);
     return (
         <section style={{
             backgroundColor: "#111015", // Deep dark background
@@ -37,13 +47,24 @@ function FeaturesSection() {
 >
   EXCLUSIVE FEATURES!
 </h2>
+<spline-viewer 
+        url="https://prod.spline.design/8gh4ICe1CqUM7Ngt/scene.splinecode" 
+        style={{ 
+          width: '100%', 
+          height: '500px',  // Adjust the height as needed
+          transform: 'scale(1.4)',  // Zoom in by scaling the scene
+          transformOrigin: 'center center',  // Ensure zoom is centered
+          marginTop: '0px'  // Reduce top margin
+        }} 
+      ></spline-viewer>
 
             <div style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
                 gap: "50px",
                 padding: "0 5vw",
-                alignItems: "center"
+                alignItems: "center",
+                marginTop: "200px" 
             }}>
                 {/* Feature 1 */}
                 <div style={{ textAlign: "center" }}>
