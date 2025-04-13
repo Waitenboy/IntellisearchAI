@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import styled, { keyframes } from "styled-components";
-import quizbg from "./components/quizbg1.gif";
+import quizbg from "./components/quizbg2.jpg";
 
 
 const XP_BAR_MAX = 100; // XP needed for a level-up
@@ -52,15 +52,15 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* Pushes content between header and footer */
-  padding-top: 100px; /* Moves content below the fixed header */
-  padding-bottom: 80px; /* Prevents content from overlapping with the footer */
+  padding-top: 50px; /* Moves content below the fixed header */
+  padding-bottom: 180px; /* Prevents content from overlapping with the footer */
 `;
 
 
 const Header = styled.div`
- margin-top: 60px; /* Push content down to avoid overlap */
+ margin-top: 90px; /* Push content down to avoid overlap */
   width: 100%;
-  background-color:rgb(153, 44, 80);
+  background-color:rgb(28, 13, 35);
   color: white;
   padding: 40px 0; /* Adjusted height */
   font-size: 45px;
@@ -80,49 +80,30 @@ const Header = styled.div`
 
 
 const QuizContainer = styled.div`
-  padding: 40px;
-  width: 70%;
+  padding: 24px;
+  width: 60%;
   max-width: 900px;
-  margin: 120px auto 30px auto; /* Adjusted margin for better spacing */
-  background: rgba(255, 255, 255, 0.15); /* Transparent glass effect */
-  backdrop-filter: blur(10px); /* Blur effect */
-  border-radius: 15px; /* Softer rounded corners */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow */
-  border: 6px solid rgba(255, 255, 255, 0.2); /* Subtle border for depth */
+  margin: 80px auto 20px auto; /* Reduced spacing */
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+  border: 4px solid rgba(255, 255, 255, 0.15);
   text-align: center;
-  transition: transform 0.3s ease-in-out; /* Hover effect */
-  
+  transition: transform 0.25s ease-in-out;
+
   &:hover {
-    transform: scale(1.02); /* Slight zoom on hover */
+    transform: scale(1.015);
   }
-     /* Ensure text and content don't change on hover */
+
   & p,
   & h3,
   & div {
-    font-weight: normal; 
-    transition: none !important; /* Disable hover transformations for text */
+    font-weight: normal;
+    transition: none !important;
   }
 `;
 
-
-// const OptionButton = styled.button`
-//   padding: 12px;
-//   margin: 5px;
-//   border-radius: 8px;
-//   width: 100%;
-//   font-size: 16px;
-//   background-color: ${({ selected, correct, incorrect }) =>
-//     selected ? (correct ? "#28a745" : incorrect ? "#dc3545" : "#f8f9fa") : "#f8f9fa"};
-//   color: ${({ selected }) => (selected ? "#fff" : "#000")};
-//   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
-//   transition: background-color 0.3s, transform 0.2s;
-//   border: 2px solid transparent;
-
-//   &:hover {
-//     transform: scale(1.05);
-//     border-color: ${({ selected }) => (selected ? "transparent" : "#ccc")};
-//   }
-// `;
 
 const ScoreText = styled.p`
   font-size: 20px;
@@ -267,77 +248,143 @@ function Quiz() {
                 <p style={{ color: "red" }}>{error}</p>
             ) : submitted ? (
                 <QuizContainer>
-                    <h2>Your Final Score: {score}/{quiz.length}</h2>
+                    <h2 style={{color:"white"}}>Your Final Score: {score}/{quiz.length}</h2>
                     <ScoreText score={score}>
                         {score <= 2 ? "😞 Need more practice!" : score === 3 ? "😊 Great job!" : "🎉 Excellent!"}
                     </ScoreText>
                     
-                    <h3>Review Your Answers</h3>
-                    <ul style={{ textAlign: "left", maxWidth: "600px", margin: "0 auto" }}>
-                        {answers.map((answer, index) => (
-                            <li key={index} style={{ marginBottom: "15px" }}>
-                                <p style={{ color: "black" }}>
-                                <strong>Q{index + 1}: {answer.question}</strong>
-                                </p>
+                    <h3 style={{color:"white", marginBottom:"55px"}}>Review Your Answers</h3>
+                    <ul style={{ textAlign: "left", maxWidth: "700px", margin: "0 auto", padding: "0" }}>
+                    {answers.map((answer, index) => (
+                        <li
+                        key={index}
+                        style={{
+                            marginBottom: "25px",
+                            backgroundColor: "rgb(39, 30, 43)",
+                            border: "1px solid rgba(255, 255, 255, 0.1)",
+                            borderRadius: "12px",
+                            padding: "20px",
+                            boxShadow: "0 6px 18px rgba(0, 0, 0, 0.4)",
+                            listStyle: "none"
+                        }}
+                        >
+                        <p style={{ color: "white", fontSize: "18px", marginBottom: "12px" }}>
+                            <strong>Q{index + 1}:</strong> {answer.question}
+                        </p>
 
-                                {answer.options.map((option) => (
-                                    <p 
-                                        key={option.id} 
-                                        style={{ 
-                                            backgroundColor: answer.selected === option.id 
-                                                ? (answer.correct === option.id ? "#28a745" : "#dc3545") 
-                                                : (answer.correct === option.id ? "#28a745" : "transparent"),
-                                            color: answer.selected === option.id || answer.correct === option.id ? "#fff" : "#000",
-                                            padding: "5px",
-                                            borderRadius: "5px"
-                                        }}
-                                    >
-                                        {option.text}
-                                    </p>
-                                ))}
-                            </li>
+                        {answer.options.map((option) => (
+                            <p
+                            key={option.id}
+                            style={{
+                                backgroundColor:
+                                answer.selected === option.id
+                                    ? answer.correct === option.id
+                                    ? " #28a745"
+                                    : " #dc3545"
+                                    : answer.correct === option.id
+                                    ? " #28a745"
+                                    : "rgb(110, 75, 137)",
+                                color: "#fff",
+                                padding: "10px 14px",
+                                borderRadius: "8px",
+                                marginBottom: "8px",
+                                transition: "0.3s ease"
+                            }}
+                            >
+                            {option.text}
+                            </p>
                         ))}
+                        </li>
+                    ))}
                     </ul>
+
                 </QuizContainer>
             ) : (
                 <QuizContainer>
     {/* Question Counter as Heading */}
-    <h4 style={{ textAlign: "center", marginBottom: "10px" }}>
+    <h4 style={{ textAlign: "center", marginBottom: "10px" , color:"white"}}>
         Question {currentQuestionIndex + 1} of {quiz.length}
     </h4>
 
     {/* Actual Question */}
-    <h4>{quiz[currentQuestionIndex]?.question}</h4>
+    <h4 style={{color:"white"}}>{quiz[currentQuestionIndex]?.question}</h4>
 
     {/* Timer */}
-    <p style={{ color: "black" }}>Time Left: {timeLeft}s</p>
+    <p style={{ color: "white" }}>Time Left: {timeLeft}s</p>
 
 
-    {/* Timer Bar */}
-    <div style={{ height: "10px", backgroundColor: "#ddd", width: "100%", marginTop: "10px" }}>
-        <div
-            style={{
-                height: "10px",
-                backgroundColor: "#28a745",
-                width: `${(timeLeft / 20) * 100}%`,
-                transition: "width 1s linear"
-            }}
-        />
-    </div>
+   {/* Timer Bar */}
+<div
+  style={{
+    height: "14px",
+    width: "100%",
+    backgroundColor: "#1e1e2f",
+    borderRadius: "10px",
+    overflow: "hidden",
+    boxShadow: "inset 0 1px 4px rgba(0,0,0,0.6)",
+    marginTop: "20px",
+  }}
+>
+  <div
+    style={{
+      height: "100%",
+      width: `${(timeLeft / 20) * 100}%`,
+      background: "linear-gradient(90deg, #ff416c, #ff4b2b)",
+      transition: "width 1s linear",
+      borderRadius: "10px",
+    }}
+  />
+</div>
 
-    {/* XP Bar & Streak Icon Side by Side */}
-    <div style={{ display: "flex", alignItems: "center", marginTop: "10px" }}>
-        <XPBarContainer style={{ flex: 1 }}>
-            <XPBar xp={(xp / XP_BAR_MAX) * 100} />
-        </XPBarContainer>
-        <span style={{ fontSize: "20px", marginLeft: "10px" }}>{setStreak}🔥</span>
-    </div>
+{/* XP Bar & Streak Icon */}
+<div
+  style={{
+    display: "flex",
+    alignItems: "center",
+    marginTop: "16px",
+    gap: "16px",
+  }}
+>
+  {/* XP Bar */}
+  <div
+    style={{
+      flex: 1,
+      height: "14px",
+      backgroundColor: "#2c2c3e",
+      borderRadius: "10px",
+      overflow: "hidden",
+      boxShadow: "inset 0 1px 4px rgba(0,0,0,0.6)",
+    }}
+  >
+    <div
+      style={{
+        height: "100%",
+        width: `${(xp / XP_BAR_MAX) * 100}%`,
+        background: "linear-gradient(90deg, #00c6ff, #0072ff)",
+        transition: "width 0.5s ease",
+        borderRadius: "10px",
+      }}
+    />
+  </div>
 
-    {/* Supportive Message */}
-    <Message xp={xp}>{getMessage()}</Message>
+  {/* Streak Icon */}
+  <span
+    style={{
+      fontSize: "22px",
+      color: "#ffa726",
+      textShadow: "0 0 6px rgba(255, 167, 38, 0.7)",
+    }}
+  >
+    {setStreak} 🔥
+  </span>
+</div>
+
+
+    {/* Supportive Message
+    <Message xp={xp}>{getMessage()}</Message> */}
 
     {/* Score */}
-    <p style={{ color: "black" }}>Score: {score}</p>
+    <p style={{ color: "white" }}>Score: {score}</p>
 
 
     {/* Options */}
