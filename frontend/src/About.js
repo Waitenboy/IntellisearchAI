@@ -53,7 +53,7 @@ const imageRef = useRef(null);
 >
 
 <spline-viewer 
-  url="https://prod.spline.design/Yw1pwPnjE4pVxSMH/scene.splinecode" 
+  url="https://prod.spline.design/INtBPMdsnvM2CLJK/scene.splinecode" 
   style={{
     width: '100%', 
     height: '100%',  // Full screen height
