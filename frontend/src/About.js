@@ -41,31 +41,29 @@ const imageRef = useRef(null);
 
   return (
     <div style={{ width: "100%", overflowX: "hidden" }}>
-      {/* Background Image Section */}
-      <div
-  style={{
-    backgroundColor: "black", // Solid black background
-    width: "100vw", // Ensures full width
-    height: "90vh", // Makes it full screen height
-    position: "relative", // Needed for absolute positioning of text
-    pointerEvents: "none",
-  }}
->
-
-<spline-viewer 
-  url="https://prod.spline.design/INtBPMdsnvM2CLJK/scene.splinecode" 
-  style={{
-    width: '100%', 
-    height: '100%',  // Full screen height
-    overflow: 'hidden' , // Prevents overflow
-    // pointerEvents: 'none',
-    transform: 'scale(1.3)'
-  }}  
-  
-></spline-viewer>
+    {/* Background Image Section */}
+    <div
+      style={{
+        backgroundColor: "black",
+        marginTop: "90px",
+        height: "400px", // Reduced height
+        position: "relative",
+        overflow: "hidden", // Crop overflow due to scale
+      }}
+    >
+      <spline-viewer
+        url="https://prod.spline.design/L2X4a8JXvIX5bV8v/scene.splinecode"
+        style={{
+          width: "100%",
+          height: "100%",
+          transform: "scale(1.3)",
+          transformOrigin: "top center",
+          // pointerEvents: "none",
+        }}
+      ></spline-viewer>
 
         {/* "About Us" Text at Bottom Left */}
-        {/* <div
+        <div
           style={{
             position: "absolute",
             bottom: "5%", // Adjust spacing from the bottom
@@ -78,10 +76,10 @@ const imageRef = useRef(null);
           }}
         >
           About Us
-        </div> */}
+        </div>
        
       </div>
-      <div style={{ marginTop: "40px" }}>
+      <div style={{ marginTop: "40px" , marginBottom: "80px"}}>
       {/* About Content Section (Image on Left, Text on Right) */}
       <div className="about-container">
         {/* Image (Spread Across Left Half) */}
