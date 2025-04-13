@@ -46,13 +46,14 @@ const imageRef = useRef(null);
   style={{
     backgroundColor: "black", // Solid black background
     width: "100vw", // Ensures full width
-    height: "60vh", // Makes it full screen height
+    height: "90vh", // Makes it full screen height
     position: "relative", // Needed for absolute positioning of text
+    pointerEvents: "none",
   }}
 >
 
 <spline-viewer 
-  url="https://prod.spline.design/86LiDqL9mATmGifH/scene.splinecode" 
+  url="https://prod.spline.design/Yw1pwPnjE4pVxSMH/scene.splinecode" 
   style={{
     width: '100%', 
     height: '100%',  // Full screen height
@@ -64,7 +65,7 @@ const imageRef = useRef(null);
 ></spline-viewer>
 
         {/* "About Us" Text at Bottom Left */}
-        <div
+        {/* <div
           style={{
             position: "absolute",
             bottom: "5%", // Adjust spacing from the bottom
@@ -77,10 +78,10 @@ const imageRef = useRef(null);
           }}
         >
           About Us
-        </div>
+        </div> */}
        
       </div>
-      <div style={{ marginTop: "100px" }}>
+      <div style={{ marginTop: "40px" }}>
       {/* About Content Section (Image on Left, Text on Right) */}
       <div className="about-container">
         {/* Image (Spread Across Left Half) */}
