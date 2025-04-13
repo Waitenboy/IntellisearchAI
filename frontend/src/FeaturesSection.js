@@ -26,7 +26,7 @@ function FeaturesSection() {
             textAlign: "center",
             fontFamily: "monospace",
             width: "100vw",
-            minHeight: "80vh",
+            minHeight: "100vh",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center"
@@ -40,7 +40,7 @@ function FeaturesSection() {
     WebkitTextFillColor: "transparent",
     textShadow: "2px 2px 12px rgba(216, 180, 248, 0.2)", // soft light purple glow
     letterSpacing: "1px",
-    marginBottom: "80px",
+    marginBottom: "-10px",
     fontFamily: "crimson Text", // gives a high-end classic feel
     textTransform: "uppercase",
   }}
@@ -54,7 +54,7 @@ function FeaturesSection() {
           height: '500px',  // Adjust the height as needed
           transform: 'scale(1.4)',  // Zoom in by scaling the scene
           transformOrigin: 'center center',  // Ensure zoom is centered
-          marginTop: '0px'  // Reduce top margin
+          marginTop: '20px'  // Reduce top margin
         }} 
       ></spline-viewer>
 

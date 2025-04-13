@@ -48,12 +48,11 @@ function SplineBackground() {
             transform: 'scale(1.3)', 
             zIndex: -1
           }}
-          url="https://prod.spline.design/uAysLqXiHtbCLVm7/scene.splinecode"
+          url="https://prod.spline.design/J62yabQLZrDyzmsj/scene.splinecode"
         />
         </div>
       );
     }  
-
 
 
 function App() {

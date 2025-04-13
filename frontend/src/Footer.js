@@ -21,6 +21,7 @@ function Footer() {
     borderTop: "1px solid #333", // subtle top border for separation
     fontFamily: "monospace", // modern techy font
     letterSpacing: "0.5px",
+    marginTop: "-140px"
   }}
 >
   <h3 style={{ marginBottom: "10px", fontSize: "22px", fontWeight: "bold" }}>

@@ -52,13 +52,13 @@ const imageRef = useRef(null);
 >
 
 <spline-viewer 
-  url="https://prod.spline.design/9uSA3tFSQTaKcCdU/scene.splinecode" 
+  url="https://prod.spline.design/4uhSoK5UN4do-kuu/scene.splinecode" 
   style={{
     width: '100%', 
     height: '100%',  // Full screen height
     overflow: 'hidden' , // Prevents overflow
-    pointerEvents: 'none',
-    transform: 'scale(1.0)'
+    // pointerEvents: 'none',
+    transform: 'scale(1.3)'
   }}  
   
 ></spline-viewer>
