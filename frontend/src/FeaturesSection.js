@@ -10,76 +10,100 @@ import history from "./components/history.json";
 function FeaturesSection() {
     return (
         <section style={{
-            backgroundColor: "#eedddd",  
-            color: "black",
-            padding: "100px 5vw", // Increased padding for more height
+            backgroundColor: "#111015", // Deep dark background
+            color: "#f5f5f5",
+            padding: "100px 5vw",
             textAlign: "center",
             fontFamily: "monospace",
-            width: "100vw", // Full width
-            minHeight: "80vh", // Make section at least 80% of screen height
+            width: "100vw",
+            minHeight: "80vh",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center" // Center content vertically
+            justifyContent: "center"
         }}>
-           <h2 style={{
-                fontSize: "60px", // Bigger and bolder
-                fontWeight: "bold",
-                // textTransform: "uppercase",
-                color: "black", // Eye-catching color
-                textShadow: "3px 3px 6px rgba(0, 0, 0, 0.2)",
-                letterSpacing: "1px",
-                marginBottom: "100px",
-                fontFamily: "Rasa", // Modern font
-                // textTransform: "uppercase",
-            }}>
-                🔓 Unlock Exclusive Features!
-            </h2>
-            
+            <h2
+  style={{
+    fontSize: "70px",
+    // fontWeight: "bold",
+    background: "linear-gradient(135deg, #ffffff, #d8b4f8)", // white to light purple
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    textShadow: "2px 2px 12px rgba(216, 180, 248, 0.2)", // soft light purple glow
+    letterSpacing: "1px",
+    marginBottom: "80px",
+    fontFamily: "crimson Text", // gives a high-end classic feel
+    textTransform: "uppercase",
+  }}
+>
+  EXCLUSIVE FEATURES!
+</h2>
+
             <div style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", 
-                gap: "50px", // More spacing between items
+                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+                gap: "50px",
                 padding: "0 5vw",
-                alignItems: "center" // Center grid items
+                alignItems: "center"
             }}>
                 {/* Feature 1 */}
                 <div style={{ textAlign: "center" }}>
-                        {/* Lottie Animation */}
-                        <Lottie 
-                                animationData={dashboard} 
-                                style={{ width: 150, height: 150, margin: "0 auto", display: "block" }} 
-                            />
-
-                        <h3 style={{ textShadow: "2px 2px 4px white", fontSize: "22px", fontWeight: "bold" }}>
-                            Personalized Dashboard
-                        </h3>
-
-                        <p style={{ lineHeight: "1.8", fontSize: "16px", color: "#333" }}>
-                            Track your searches, quiz attempts, and study progress in one place.
-                        </p>
-                        </div>
-
+                    <Lottie 
+                        animationData={dashboard} 
+                        style={{ width: 150, height: 150, margin: "0 auto", display: "block" }} 
+                    />
+                    <h3 style={{ 
+                        textShadow: "2px 2px 4px #000", 
+                        fontSize: "22px", 
+                        fontWeight: "bold",
+                        color: "#E2C4FF"
+                    }}>
+                        Personalized Dashboard
+                    </h3>
+                    <p style={{ lineHeight: "1.8", fontSize: "16px", color: "#ccc" }}>
+                        Track your searches, quiz attempts, and study progress in one place.
+                    </p>
+                </div>
+        
                 {/* Feature 2 */}
                 <div>
-                <Lottie 
-                                animationData={badge} 
-                                style={{ width: 150, height: 150, margin: "0 auto", display: "block" }} 
-                            />
-                    <h3 style={{ textShadow: "2px 2px 4px white" }}>Earn Badges & Achievements</h3>
-                    <p style={{ lineHeight: "1.8" }}>Unlock badges based on your learning activity and stay motivated.</p>
+                    <Lottie 
+                        animationData={badge} 
+                        style={{ width: 150, height: 150, margin: "0 auto", display: "block" }} 
+                    />
+                    <h3 style={{ 
+                        textShadow: "2px 2px 4px #000", 
+                        fontSize: "22px", 
+                        fontWeight: "bold",
+                        color: "#FFB6C1"
+                    }}>
+                        Earn Badges & Achievements
+                    </h3>
+                    <p style={{ lineHeight: "1.8", color: "#ccc", fontSize: "16px" }}>
+                        Unlock badges based on your learning activity and stay motivated.
+                    </p>
                 </div>
-
+        
                 {/* Feature 3 */}
                 <div>
-                <Lottie 
-                                animationData={history} 
-                                style={{ width: 150, height: 150, margin: "0 auto", display: "block" }} 
-                            />
-                    <h3 style={{ textShadow: "2px 2px 4px white" }}>Search & Quiz History</h3>
-                    <p style={{ lineHeight: "1.8" }}>Easily revisit past searches to reinforce learning.</p>
+                    <Lottie 
+                        animationData={history} 
+                        style={{ width: 150, height: 150, margin: "0 auto", display: "block" }} 
+                    />
+                    <h3 style={{ 
+                        textShadow: "2px 2px 4px #000", 
+                        fontSize: "22px", 
+                        fontWeight: "bold",
+                        color: "#9FE2BF"
+                    }}>
+                        Search & Quiz History
+                    </h3>
+                    <p style={{ lineHeight: "1.8", color: "#ccc", fontSize: "16px" }}>
+                        Easily revisit past searches to reinforce learning.
+                    </p>
                 </div>
             </div>
         </section>
+        
     );
 }
 

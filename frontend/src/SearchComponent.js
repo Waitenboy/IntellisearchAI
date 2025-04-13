@@ -311,50 +311,67 @@ const SearchComponent = () => {
 
 
 
-            {summary && (
-                <div style={styles.section}>
-                    <h3 style={{ fontWeight: "bold" }}>AI Summary</h3>
-                    <p>{summary}</p>
-                </div>
-            )}
+        {summary && (
+            <div style={styles.section}>
+                <h3 style={{ ...styles.heading, fontWeight: "bold" }}>AI Summary</h3>
+                <p style={{ color: "rgb(249, 247, 255)", fontSize: "16px", lineHeight: "1.6" }}>{summary}</p>
+            </div>
+        )}
 
-            {translatedSummary && (
-                <div style={styles.section}>
-                    <h3 style={{ fontWeight: "bold" }}>Translated Summary</h3>
-                    <p>{translatedSummary}</p>
-                </div>
-         
-            )}
+        {translatedSummary && (
+            <div style={styles.section}>
+                <h3 style={{ ...styles.heading, fontWeight: "bold" }}>Translated Summary</h3>
+                <p style={{ color: "rgb(255, 255, 255)", fontSize: "16px", lineHeight: "1.6" }}>{translatedSummary}</p>
+            </div>
+        )}
 
-<div style={{ textAlign: "center", marginTop: "10px" }}>
-    <button 
-        onClick={handleSearch} 
-        disabled={!query.trim()} 
-        style={{
-            padding: "12px 20px",
-            fontSize: "16px",
-            background: "linear-gradient(135deg, #FF416C, #FF4B2B)",
-color: "#fff",
-
-            border: "none",
-            borderRadius: "5px",
-            cursor: query.trim() ? "pointer" : "not-allowed",
-            boxShadow: "2px 2px 10px rgba(0,0,0,0.1)"
-        }}
-    >
-        Test yourself with a quiz!
-    </button>
+<div style={{ textAlign: "center", marginTop: "20px" }}>
+  <button
+    onClick={handleSearch}
+    disabled={!query.trim()}
+    style={{
+      padding: "14px 28px",
+      fontSize: "20px",
+      fontFamily: "monospace",
+      fontWeight: "600",
+      background: query.trim()
+        ? "linear-gradient(135deg, #8E2DE2, #4A00E0)"
+        : "linear-gradient(135deg, #444, #333)",
+      color: "#fff",
+      border: "1px solid rgba(255,255,255,0.15)",
+      borderRadius: "14px",
+      cursor: query.trim() ? "pointer" : "not-allowed",
+      boxShadow: query.trim()
+        ? "0 8px 20px rgba(142,45,226,0.3)"
+        : "none",
+      transition: "all 0.3s ease-in-out",
+      backdropFilter: "blur(5px)",
+    }}
+    onMouseOver={(e) => {
+      if (query.trim()) {
+        e.target.style.transform = "translateY(-2px)";
+        e.target.style.boxShadow = "0 12px 24px rgba(142,45,226,0.4)";
+      }
+    }}
+    onMouseOut={(e) => {
+      e.target.style.transform = "translateY(0)";
+      e.target.style.boxShadow = "0 8px 20px rgba(142,45,226,0.3)";
+    }}
+  >
+    🚀 Take a quiz!
+  </button>
 </div>
+
 
             
             {similarTopics.length > 0 && (
-                <div style={{ marginTop: "20px", padding: "10px", backgroundColor: "#f9f9f9", borderRadius: "5px" }}>
-                    <h3 style={{ fontWeight: "bold", color: "#333" }}>Related Topics:</h3>
+                <div style={{ marginTop: "20px", padding: "10px", background: "linear-gradient(135deg, #1a1a1a, #2c2c2c)", borderRadius: "5px" }}>
+                    <h3 style={{ fontWeight: "bold", color: "white" }}>Related Topics:</h3>
                     <div>
                         {similarTopics.map((topic, index) => (
                             <p 
                                 key={index} 
-                                style={{ color: "#007bff", margin: "5px 0", cursor: "pointer", textDecoration: "underline" }} 
+                                style={{ color: "white", margin: "5px 0", cursor: "pointer", textDecoration: "underline" }} 
                                 onClick={() => {
                                     console.log("Clicked topic:", topic);
                                     setQuery(topic); // Update search bar
@@ -379,7 +396,7 @@ color: "#fff",
                     <ul style={{ listStyleType: "none", padding: 0 }}>
                         {youtubeResults.slice(0, 5).map(video => (
                             <li key={video.videoId} style={{ marginBottom: "10px", display: "flex", alignItems: "center" }}>
-                                <a href={`https://www.youtube.com/watch?v=${video.videoId}`} target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", textDecoration: "none", color: "gray" }}>
+                                <a href={`https://www.youtube.com/watch?v=${video.videoId}`} target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", textDecoration: "none", color: "white" }}>
                                     <img src={video.thumbnail} alt={video.title} style={{ width: "120px", height: "90px", marginRight: "10px", borderRadius: "5px" }} />
                                     <span>{video.title}</span>
                                 </a>
@@ -397,7 +414,7 @@ color: "#fff",
                     <ul>
                         {googleResults.slice(0, 5).map(result => ( // Slice the first 5 results
                             <li key={result.link}>
-                                <a href={result.link} target="_blank" rel="noopener noreferrer" style={{ color: "gray", textDecoration: "none" }}>
+                                <a href={result.link} target="_blank" rel="noopener noreferrer" style={{ color: "white", textDecoration: "none" }}>
                                     {result.title}
                                 </a>
                             </li>
@@ -422,8 +439,9 @@ const styles = {
         fontSize: "14px", // Slightly smaller font
         cursor: "pointer",
         marginLeft: "8px", // Slightly reduced margin
-        background: "linear-gradient(135deg, #FF416C, #FF4B2B)",
-color: "#fff",
+        background: "linear-gradient(135deg, #8E2DE2, #4A00E0)",
+        color: "#fff",
+        
 
     },
     
@@ -468,20 +486,29 @@ color: "#fff",
         padding: "14px",
         fontSize: "16px",
         fontWeight: 600,
-        background: "linear-gradient(135deg, #FF416C, #FF4B2B)",
+        background: "linear-gradient(135deg, #8E2DE2, #4A00E0)",
         color: "#fff",
         border: "none",
         borderRadius: "14px",
         cursor: "pointer",
-        transition: "transform 0.3s ease, box-shadow 0.3s ease",
-        boxShadow: "0 6px 20px rgba(0, 0, 0, 0.3)",
+        transition: "transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease",
+        boxShadow: "0 8px 24px rgba(142, 45, 226, 0.35)",
         letterSpacing: "0.7px",
+        backdropFilter: "blur(4px)",
+        WebkitBackdropFilter: "blur(4px)",
         "&:hover": {
-          transform: "translateY(-2px)",
-          boxShadow: "0 10px 24px rgba(0, 0, 0, 0.5)",
-          background: "linear-gradient(135deg, #2c2c2c, #0f0f0f)"
+            transform: "translateY(-3px)",
+            boxShadow: "0 12px 32px rgba(142, 45, 226, 0.45)",
+            background: "linear-gradient(135deg, #9F44D3, #5732C6)"
+        },
+        "&:disabled": {
+            cursor: "not-allowed",
+            opacity: 0.6,
+            boxShadow: "none",
+            background: "linear-gradient(135deg, #444, #333)"
         }
     },
+    
         
     micButton: {
         marginLeft: "8px",
@@ -498,9 +525,8 @@ color: "#fff",
         width: "100%",
         padding: "12px",
         fontSize: "18px",
-        background: "linear-gradient(135deg, #FF416C, #FF4B2B)",
-color: "#fff",
-
+        background: "linear-gradient(135deg, #8E2DE2, #4A00E0)",
+        color: "#fff",
         border: "none",
         borderRadius: "5px",
         cursor: "pointer",
@@ -508,16 +534,24 @@ color: "#fff",
     },
     section: {
         marginTop: "20px",
-        padding: "15px",
-        background: "white",
-        borderRadius: "8px",
-        boxShadow: "0px 2px 4px rgba(0,0,0,0.1)",
+        padding: "20px",
+        background: "linear-gradient(135deg, #1a1a1a, #2c2c2c)", // Dark gradient background
+        borderRadius: "12px",
+        boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.6)", // Deeper shadow for depth
+        border: "1px solid rgba(255, 255, 255, 0.1)" // Soft border
     },
     heading: {
-        fontSize: "22px",
-        color: "#333",
-        marginBottom: "10px",
+        fontSize: "24px",
+        color: "white",
+        background: "linear-gradient(90deg, #ffffff, #d0a9f5)", // White to light purple gradient
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+        fontWeight: "bold",
+        marginBottom: "15px",
+        letterSpacing: "1px",
+        textShadow: "2px 2px 6px rgba(255, 255, 255, 0.1)"
     },
+    
     quizContainer: {
         textAlign: "center",
         border: "1px solid #ddd",

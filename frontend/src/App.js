@@ -16,7 +16,7 @@ import Footer from "./Footer";
 import Quiz from "./quiz";
 import Roadmap from "./Roadmap";
 import Lottie from "lottie-react";
-import roadmapimg from "./roadmapimg.json";
+import roadmapimg from "./roadmapimg1.json";
 import "./App.css";
 
 const PrivateRoute = ({ element }) => {
@@ -31,24 +31,26 @@ function SplineBackground() {
       script.src = "https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js";
       script.async = true;
       document.body.appendChild(script);
-  
+      document.body.style.overflowX = 'hidden';
       return () => {
         document.body.removeChild(script);
       };
     }, []);
     return (
+        <div style={{ overflow: 'hidden'}}>
         <spline-viewer
           style={{
             position: 'absolute',
             top: '80px',
             left: 0,
             width: '100%',
-            height: '100%',
-            transform: 'scale(1.3)',
+            height: '80%',
+            transform: 'scale(1.3)', 
             zIndex: -1
           }}
           url="https://prod.spline.design/uAysLqXiHtbCLVm7/scene.splinecode"
         />
+        </div>
       );
     }  
 
@@ -64,34 +66,13 @@ function App() {
                     <Routes>
                     <Route path="/" element={
                             <>
-                                {/* <div style={{ marginBottom: "390px" }}> 
-                                    <UncontrolledExample />
-                                </div> */}
+                                
                                 <SplineBackground />
                                
-                                <div className="content" style={{ padding: "60px", marginTop: "780px" }}>
+                                <div className="content" style={{ padding: "60px", marginTop: "680px" }}>
 
                                     <div className="container">
-                                    {/* <h1 style={{ 
-                                                fontWeight: "bold", 
-                                                fontSize: "40px", 
-                                                fontFamily: "monospace", 
-                                                letterSpacing: "2px", 
-                                                // textTransform: "uppercase", 
-                                                color: "#2C3E50" 
-                                            }}>
-                                                🔍 IntelliSearch
-                                            </h1>
-                                            <p style={{ 
-                                                fontSize: "22px", 
-                                                fontFamily: "monospace", 
-                                                color: "#555", 
-                                                marginTop: "10px", 
-                                                fontWeight: "500" 
-                                            }}>
-                                                Begin searching now!
-                                            </p> */}
-
+                                   
                                         
                                         <SearchComponent />
                                         
@@ -99,82 +80,97 @@ function App() {
                                         <div 
                                         style={{ 
                                             width: "100%", 
-                                            backgroundColor: "rgb(155, 59, 59)", // Light red-pinkish background
-                                            padding: "60px 0px", // Increased padding for better spacing
+                                            background: "linear-gradient(135deg, #0d0d0d, #1f1a2f, #2e2644)",  // Dark background
+                                            minHeight: "700px",
+                                            padding: "60px 20px",
                                             display: "flex",
                                             flexDirection: "column",
                                             justifyContent: "center",
                                             alignItems: "center",
-                                            textAlign: "center"
+                                            textAlign: "center",
+                                            borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+                                            borderBottom: "1px solid rgba(255, 255, 255, 0.1)"
                                         }}
                                     >
-                                         {/* Lottie Animation */}
-                                         <Lottie 
-                                                animationData={roadmapimg} 
-                                                style={{ 
-                                                    width: 300, 
-                                                    height: 300, 
-                                                    margin: "0 auto", 
-                                                    display: "block", 
-                                                    marginBottom: "-70px", // Pulls closer to the text
-                                                    marginTop: "-80px" // Moves it upward
-                                                }} 
-                                            />
-                                            <SplineBackground
-        url="https://prod.spline.design/BJrpN7mrT5wECwTc/scene.splinecode"
-        topOffset="1500px" // optional: control positioning
-      />
+                                        {/* Lottie Animation */}
+                                        <Lottie 
+                                            animationData={roadmapimg} 
+                                            style={{ 
+                                                width: 400,           // ⬅ Increase size here
+                                                height: 400,          // ⬅ Increase size here
+                                                marginBottom: "-70px", // Optional: adjust spacing
+                                                marginTop: "-120px"     // Optional: adjust spacing
+                                            }} 
+                                        />
+                                        <h2 
+                                            style={{ 
+                                                fontSize: "32px", 
+                                                fontWeight: "bold", 
+                                                color: "#F8F8F8", 
+                                                marginBottom: "14px", 
+                                                marginTop: "0px",
+                                                // minHeight: "100px",
+                                                fontFamily: "Special Elite",
+                                                fontSize: "40px",
+                                                letterSpacing: "1px"
+                                            }}
+                                        >
+                                           Running out of time and don't know how to study?
+                                        </h2>
 
-                                            <h2 
-                                                style={{ 
-                                                    fontSize: "35px", 
-                                                    fontWeight: "bold", 
-                                                    color: "rgb(234, 187, 187)", 
-                                                    marginBottom: "10px", 
-                                                    marginTop: "0px" // Ensure no extra top margin
-                                                }}
-                                            >
-                                                Want to create a roadmap and know how to study?
-                                            </h2>
+                                        <p 
+                                            style={{ 
+                                                fontSize: "28px", 
+                                                color: "#ccc", 
+                                                marginBottom: "30px", 
+                                                maxWidth: "600px",
+                                                fontFamily: "Crimson Text"
+                                            }}
+                                        >
+                                            We got you covered. Check this out!
+                                        </p>
 
-                                    <p style={{ fontSize: "18px", color: "white", marginBottom: "25px" }}>
-                                        We got you covered. Check this out!
-                                    </p>
                                         <div style={{ textAlign: "center" }}>
                                             <Link to="/roadmap">
                                                 <button 
                                                     style={{ 
-                                                        padding: "18px 40px", // Bigger button
-                                                        fontSize: "22px", // Larger text
-                                                        fontWeight: "bold",
-                                                        backgroundColor: "rgb(231, 204, 204)",
-                                                        color: "black",
+                                                        padding: "16px 36px",
+                                                        fontSize: "18px",
+                                                        fontWeight: "600",
+                                                        background: "linear-gradient(135deg, #8E2DE2, #4A00E0)",
+                                                        color: "#fff",
                                                         border: "none",
-                                                        borderRadius: "10px", // More rounded
+                                                        borderRadius: "12px",
                                                         cursor: "pointer",
-                                                        transition: "background 0.3s, transform 0.2s",
-                                                        boxShadow: "0px 6px 15px rgba(0, 0, 0, 0.2)" // Stronger shadow
+                                                        transition: "all 0.3s ease",
+                                                        boxShadow: "0 6px 20px rgba(142, 45, 226, 0.4)",
+                                                        marginBottom: '-10px'
                                                     }}
                                                     onMouseOver={(e) => {
-                                                        e.target.style.backgroundColor = "rgb(225, 124, 124)";
-                                                        e.target.style.transform = "scale(1.1)"; // Slight zoom effect
+                                                        e.target.style.background = "linear-gradient(135deg, #9F44D3, #5732C6)";
+                                                        e.target.style.transform = "translateY(-3px)";
                                                     }}
                                                     onMouseOut={(e) => {
-                                                        e.target.style.backgroundColor = "rgb(231, 177, 177)";
-                                                        e.target.style.transform = "scale(1)"; // Reset zoom
+                                                        e.target.style.background = "linear-gradient(135deg, #8E2DE2, #4A00E0)";
+                                                        e.target.style.transform = "translateY(0)";
                                                     }}
                                                 >
-                                                    Create a Study Plan
+                                                    Create a Roadmap
                                                 </button>
                                             </Link>
                                         </div>
                                     </div>
 
 
+
                                         <FeaturesSection />
                                     </div>
                                 </div>
-                                <TestimonialsSection />
+                                
+                                <div style={{ backgroundColor: "#ffffff" }}>
+                                    <TestimonialsSection />
+                                    </div>
+
                             </>
                          } />
                         
