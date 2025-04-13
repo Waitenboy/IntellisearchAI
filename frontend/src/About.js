@@ -46,13 +46,13 @@ const imageRef = useRef(null);
   style={{
     backgroundColor: "black", // Solid black background
     width: "100vw", // Ensures full width
-    height: "80vh", // Makes it full screen height
+    height: "60vh", // Makes it full screen height
     position: "relative", // Needed for absolute positioning of text
   }}
 >
 
 <spline-viewer 
-  url="https://prod.spline.design/4uhSoK5UN4do-kuu/scene.splinecode" 
+  url="https://prod.spline.design/86LiDqL9mATmGifH/scene.splinecode" 
   style={{
     width: '100%', 
     height: '100%',  // Full screen height
@@ -80,7 +80,7 @@ const imageRef = useRef(null);
         </div>
        
       </div>
-
+      <div style={{ marginTop: "100px" }}>
       {/* About Content Section (Image on Left, Text on Right) */}
       <div className="about-container">
         {/* Image (Spread Across Left Half) */}
@@ -90,7 +90,7 @@ const imageRef = useRef(null);
 
         {/* Text Content on the Right */}
         <div className="about-text" >
-          <h1>Empowering Education & Social Impact</h1>
+        <h1 style={{ color: "white" }}>Empowering Education & Social Impact</h1>
           <p>
           This platform isn't just about learning—it’s about accessibility and inclusivity. The speech-to-text feature makes it easier for individuals with writing challenges to explore topics, while multilingual support breaks language barriers. By tracking searches, quiz submissions, and progress, students can stay motivated and engaged. With badges and rewards for active learners, education becomes more interactive and goal-oriented. Our AI tutor is designed to make quality education accessible to all, bridging the gap between curiosity and structured learning. 
           </p>
@@ -101,7 +101,7 @@ const imageRef = useRef(null);
       <div className="about-container reverse">
         {/* Text on Left */}
         <div className="about-text">
-          <h1>Beyond Google & ChatGPT: More Than Just Answers</h1>
+        <h1 style={{ color: "white" }}>Beyond Google & ChatGPT: More Than Just Answers</h1>
           <p>
           While Google and ChatGPT provide scattered search results or lengthy responses, our AI tutor refines and curates information specifically for learning. Along with AI-generated summaries, it also fetches the top five Google and YouTube results, ensuring you get diverse and reliable sources for deeper understanding. The built-in quiz feature further reinforces learning by testing your knowledge, while the roadmap tool helps you create a personalized study plan tailored to your timeline.
           </p>
@@ -122,12 +122,13 @@ const imageRef = useRef(null);
 
         {/* Text Content on the Right */}
         <div className="about-text" >
-          <h1>A Smarter Way to Learn with AI</h1>
+        <h1 style={{ color: "white" }}>A Smarter Way to Learn with AI</h1>
           <p>
           Our AI-powered tutor revolutionizes the way you study by generating concise, easy-to-understand summaries of any topic. Whether you type or speak your query, the AI instantly curates key insights, saving you hours of research. Unlike traditional search engines, our platform goes beyond just providing information—it organizes it into structured study plans, making complex topics easier to grasp. Plus, with the option to save summaries as PDFs, you can revisit your learning materials anytime, anywhere.
           </p>
         </div>
       </div>
+    </div>
     </div>
   );
 }

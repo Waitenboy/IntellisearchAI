@@ -54,7 +54,7 @@ function SplineBackground() {
       );
     }  
 
-
+    
 function App() {
     return (
         <div id="root">
@@ -74,8 +74,25 @@ function App() {
                                    
                                         
                                         <SearchComponent />
-                                        
-     
+                                        <div style={{ 
+  marginTop: '40px', 
+  display: 'flex', 
+  justifyContent: 'center', 
+  overflow: 'hidden' 
+}}>
+  <div style={{ 
+    transform: 'scale(1.3)',   // Zoom in
+    transformOrigin: 'center', // Keep zoom centered
+    width: '100%',
+    maxWidth: '1000px',
+    height: '1000px'
+  }}>  
+                                        <spline-viewer
+          url="https://prod.spline.design/INtBPMdsnvM2CLJK/scene.splinecode"
+          style={{ width: '100%', height: '100%',  }}
+        ></spline-viewer>
+         </div>
+         </div>
                                         <div 
                                         style={{ 
                                             width: "100%", 
@@ -160,9 +177,9 @@ function App() {
                                         </div>
                                     </div>
 
+                                    <FeaturesSection />
 
-
-                                        <FeaturesSection />
+                                        
                                     </div>
                                 </div>
                                 
