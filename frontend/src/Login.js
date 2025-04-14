@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import signupBg from "./components/signup.jpg"; // Using the same background as Signup
+import signupBg from "./components/signup1.jpg"; // Using the same background as Signup
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -10,14 +10,19 @@ function Login() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const inputStyle = {
-    padding: "12px",
-    margin: "8px 0",
-    borderRadius: "8px",
-    border: "1px solid #ddd",
+  const inputStyleDark = {
     width: "100%",
+    padding: "14px 18px",
+    borderRadius: "10px",
+    border: "1px solid #444",
+    backgroundColor: "#1c1c2b",
+    color: "#f5f5f5",
     fontSize: "16px",
+    fontFamily: "monospace",
+    letterSpacing: "0.5px",
     outline: "none",
+    transition: "0.3s",
+    boxShadow: "0 0 0px transparent",
   };
 
   const handleLogin = async (e) => {
@@ -84,110 +89,126 @@ function Login() {
 
   return (
     <>
-      <div style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100vw",
-        height: "100vh",
-        backgroundImage: `url(${signupBg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        zIndex: -1,
-      }}></div>
+       {/* Background Image */}
+    <div style={{
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100vw",
+      height: "100vh",
+      backgroundImage: `url(${signupBg})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      zIndex: -1,
+    }}></div>
 
+    {/* Login Box Wrapper */}
+    <div style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "flex-start",
+      height: "100vh",
+      paddingTop: "100px",
+    }}>
       <div style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
+        width: "100%",
+        maxWidth: "420px",
+        padding: "40px",
+        borderRadius: "18px",
+        background: "linear-gradient(135deg, #0d0d0d, #1f1a2f, #2e2644)",
+        backdropFilter: "blur(20px)",
+        boxShadow: "0 12px 24px rgba(0, 0, 0, 0.6)",
+        textAlign: "center",
+        color: "#e0e0e0",
+        fontFamily: "monospace",
       }}>
-        <div style={{
-          width: "100%",
-          maxWidth: "400px",
-          padding: "30px",
-          borderRadius: "12px",
-          background: "rgba(255, 255, 255, 0.9)",
-          boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.2)",
-          textAlign: "center",
-          color: "#333",
+        <h2 style={{
+          marginBottom: "25px",
+          fontSize: "32px",
+          color: "rgb(195, 132, 237)",
+          textShadow: "0 0 6px rgba(108, 158, 242, 0.3)",
+          fontFamily: "Rasa",
         }}>
-          <h2 style={{ marginBottom: "20px", color: "#d63031" }}>Login</h2>
-          {error && <p style={{ color: "red", fontWeight: "bold" }}>{error}</p>}
+          Login
+        </h2>
 
-          {step === 1 ? (
-            <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-              <input 
-                type="email" 
-                placeholder="Email" 
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)} 
-                required 
-                style={inputStyle}
-              />
-              <input 
-                type="password" 
-                placeholder="Password" 
-                value={password} 
-                onChange={(e) => setPassword(e.target.value)} 
-                required 
-                style={inputStyle}
-              />
-              <button 
-                type="submit" 
-                style={{
-                  background: "rgb(191, 87, 87)",
-                  color: "white",
-                  border: "none",
-                  padding: "12px",
-                  borderRadius: "8px",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  cursor: "pointer",
-                  transition: "0.3s"
-                }}
-                onMouseOver={(e) => e.target.style.background = "#c0392b"}
-                onMouseOut={(e) => e.target.style.background = "rgb(191, 87, 87)"}
-              >
-                Send OTP
-              </button>
-            </form>
-          ) : (
-            <form onSubmit={handleVerifyOtp} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-              <input 
-                type="text" 
-                placeholder="Enter OTP" 
-                value={otp} 
-                onChange={(e) => setOtp(e.target.value)} 
-                required 
-                style={inputStyle}
-              />
-              <button 
-                type="submit" 
-                style={{
-                  background: "rgb(191, 87, 87)",
-                  color: "white",
-                  border: "none",
-                  padding: "12px",
-                  borderRadius: "8px",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  cursor: "pointer",
-                  transition: "0.3s"
-                }}
-                onMouseOver={(e) => e.target.style.background = "#c0392b"}
-                onMouseOut={(e) => e.target.style.background = "rgb(191, 87, 87)"}
-              >
-                Verify OTP & Login
-              </button>
-            </form>
-          )}
+        {error && <p style={{ color: "#ff6b6b", fontWeight: "bold" }}>{error}</p>}
 
-          <p style={{ marginTop: "15px", fontSize: "14px", color: "#333" }}>
-            Don't have an account? <a href="/signup" style={{ color: "#d63031", fontWeight: "bold", textDecoration: "underline" }}>Signup</a>
-          </p>
-        </div>
+        {step === 1 ? (
+          <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
+            <input 
+              type="email" 
+              placeholder="Email" 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
+              required 
+              style={inputStyleDark}
+            />
+            <input 
+              type="password" 
+              placeholder="Password" 
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)} 
+              required 
+              style={inputStyleDark}
+            />
+            <button 
+              type="submit" 
+              style={{
+                background: "linear-gradient(135deg,rgb(33, 20, 41),rgb(177, 112, 230))",
+                color: "white",
+                border: "none",
+                padding: "14px",
+                borderRadius: "10px",
+                fontSize: "17px",
+                fontWeight: "bold",
+                cursor: "pointer",
+                transition: "0.3s ease-in-out",
+                boxShadow: "0 0 10px rgba(108, 158, 242, 0.3)",
+              }}
+              onMouseOver={(e) => e.target.style.boxShadow = "0 0 16px rgba(108, 158, 242, 0.6)"}
+              onMouseOut={(e) => e.target.style.boxShadow = "0 0 10px rgba(108, 158, 242, 0.3)"}
+            >
+              Send OTP
+            </button>
+          </form>
+        ) : (
+          <form onSubmit={handleVerifyOtp} style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
+            <input 
+              type="text" 
+              placeholder="Enter OTP" 
+              value={otp} 
+              onChange={(e) => setOtp(e.target.value)} 
+              required 
+              style={inputStyleDark}
+            />
+            <button 
+              type="submit" 
+              style={{
+                background: "linear-gradient(135deg,rgb(33, 20, 41),rgb(177, 112, 230))",
+                color: "white",
+                border: "none",
+                padding: "14px",
+                borderRadius: "10px",
+                fontSize: "17px",
+                fontWeight: "bold",
+                cursor: "pointer",
+                transition: "0.3s ease-in-out",
+                boxShadow: "0 0 10px rgba(108, 158, 242, 0.3)",
+              }}
+              onMouseOver={(e) => e.target.style.boxShadow = "0 0 16px rgba(108, 158, 242, 0.6)"}
+              onMouseOut={(e) => e.target.style.boxShadow = "0 0 10px rgba(108, 158, 242, 0.3)"}
+            >
+              Verify OTP & Login
+            </button>
+          </form>
+        )}
+
+        <p style={{ marginTop: "20px", fontSize: "15px", color: "#bbb" }}>
+          Don't have an account? <a href="/signup" style={{ color: "rgb(208, 109, 235)", fontWeight: "bold", textDecoration: "underline" }}>Signup</a>
+        </p>
       </div>
+    </div>
     </>
   );
 }
