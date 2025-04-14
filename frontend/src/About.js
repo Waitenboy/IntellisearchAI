@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import backgroundImage from "./components/carouselimg.png"; // Imports the image
+// import backgroundImage from "./components/carouselimg.png"; // Imports the image
 import img4 from "./components/img44.gif";
 import img5 from "./components/img55.gif";
 import img6 from "./components/img66.gif"

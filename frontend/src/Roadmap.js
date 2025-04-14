@@ -5,8 +5,8 @@ import roadmap1 from './components/roadmap.gif';
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import roadmapbg from "./components/roadmap.jpg";
-import roadmaping from "./roadmapicon.json";
-import Lottie from "lottie-react";
+// import roadmaping from "./roadmapicon.json";
+// import Lottie from "lottie-react";
 // import bgstatic from "./components/roadmapbg.jpg"
 
 function Roadmap() {

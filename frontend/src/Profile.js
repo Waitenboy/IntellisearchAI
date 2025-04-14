@@ -16,6 +16,10 @@ const Profile = () => {
     // const [isEditing, setIsEditing] = useState(false);
     const [message, setMessage] = useState("");
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
+
     const fetchProfile = async () => {
         try {
             const token = localStorage.getItem("token");
@@ -60,6 +64,17 @@ const Profile = () => {
         })
         .catch(err => console.error("Error fetching history:", err));
     }, [userId]);
+    
+     useEffect(() => {
+        const script = document.createElement('script');
+        script.type = 'module';
+        script.src = 'https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js';
+        document.body.appendChild(script);
+    
+        return () => {
+          document.body.removeChild(script); // Clean up when component unmounts
+        };
+      }, []);
     
     const handleUpdate = async () => {
         setMessage("");
@@ -144,67 +159,113 @@ const Profile = () => {
     const quizBadgeMessage = getQuizBadgeMessage();
     
     
-    
+    function TypingText({ text, speed = 100 }) {
+        const [displayedText, setDisplayedText] = useState("");
+      
+        useEffect(() => {
+          let i = 0;
+          const interval = setInterval(() => {
+            setDisplayedText((prev) => prev + text.charAt(i));
+            i++;
+            if (i === text.length) clearInterval(interval);
+          }, speed);
+      
+          return () => clearInterval(interval);
+        }, [text, speed]);
+      
+        return <span>{displayedText}</span>;
+      }
 
     return (
+
         <div style={styles.container}>
+           <spline-viewer
+  url="https://prod.spline.design/RanRhVh36B0213ao/scene.splinecode"
+  style={{
+    width: "100%",
+    height: "80%",
+    transform: "scale(1.7) translateY(-50px)", // shift up by 80px
+    transformOrigin: "top center",
+    zIndex: -1
+    // pointerEvents: "none",
+  }}
+></spline-viewer>
+
         {/* Header Section */}
-        <div style={styles.header}>
-            <h2 style={styles.headerText}>
-                {user ? `Welcome ${user.username}!` : "Loading..."}
-                {badge && <img src={badge} alt="Badge" style={styles.badge} />}
-            </h2>
-        </div>
-    
+        <div style={{
+  position: "absolute",
+  top: "120%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  textAlign: "center",
+  zIndex: 10, // make sure it appears above the Spline scene
+  marginTop:"100px"
+}}>
+  <h2 style={{
+    fontSize: "82px",
+    fontFamily: "Iceland",
+    color: "#fff",
+    // background: "rgba(0, 0, 0, 0.4)",
+    padding: "12px 24px",
+    // borderRadius: "12px",
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "10px"
+  }}>
+    {user ? <TypingText text={`Weelcome ${user.username}!`} speed={110} /> : "Loading..."}
+    {badge && <img src={badge} alt="Badge" style={{ height: "32px" }} />}
+  </h2>
+
+
+        
         {/* Page Layout: Left (Profile & Stats) | Right (Search History) */}
-        <div style={styles.statsContainer}>
-            
-            {/* Left Section: Profile & Stats */}
-            <div style={styles.leftSection}>
-                
-            {user ? (
-        <div style={{ maxWidth: "400px", margin: "auto", textAlign: "left" }}>
-          <label><strong>Username:</strong></label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            disabled={!isEditing}
-            style={inputStyle}
-          />
+         {/* Profile section with gap */}
+  <div style={{ marginTop: "40px" }}> {/* Add margin here */}
+    <div style={styles.statsContainer}>
+      <div style={styles.leftSection}>
+        {user ? (
+          <div style={{ maxWidth: "400px", margin: "auto", textAlign: "left", color:"white" }}>
+            <label><strong>Username:</strong></label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              disabled={!isEditing}
+              style={inputStyle}
+            />
 
-<label><strong>Email:</strong></label>
-<input
-  type="email"
-  value={user?.email}  // Display user's email directly
-  readOnly  // Prevent editing
-  style={{ ...inputStyle, backgroundColor: "#f0f0f0", cursor: "not-allowed" }} // Light gray background
-/>
+            <label><strong>Email:</strong></label>
+            <input
+              type="email"
+              value={user?.email}
+              readOnly
+              style={{ ...inputStyle, backgroundColor: "#f0f0f0", cursor: "not-allowed" }}
+            />
 
+            <label><strong>New Password:</strong></label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled={!isEditing}
+              placeholder="Enter new password (optional)"
+              style={inputStyle}
+            />
 
-          <label><strong>New Password:</strong></label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            disabled={!isEditing}
-            placeholder="Enter new password (optional)"
-            style={inputStyle}
-          />
-
-          {!isEditing ? (
-            <button onClick={() => setIsEditing(true)} style={buttonStyle}>
-              Edit Profile
-            </button>
-          ) : (
-            <button onClick={handleUpdate} style={buttonStyle}>
-              Save Changes
-            </button>
-          )}
-        </div>
-      ) : (
-        <p>Loading user details...</p>
-      )}
+            {!isEditing ? (
+              <button onClick={() => setIsEditing(true)} style={buttonStyle}>
+                Edit Profile
+              </button>
+            ) : (
+              <button onClick={handleUpdate} style={buttonStyle}>
+                Save Changes
+              </button>
+            )}
+          </div>
+        ) : (
+          <p>Loading user details...</p>
+        )}
+      </div>
     
                 {/* Award Message */}
                 {awardMessage && <p style={styles.awardMessage}>{awardMessage}</p>}
@@ -246,7 +307,7 @@ const Profile = () => {
                     </button>
                 )}
             </div>
-
+            </div>
         </div>
     </div>
     
@@ -263,7 +324,7 @@ const inputStyle = {
 };
 
 const buttonStyle = {
-  backgroundColor: "#d63031",
+  backgroundColor: "rgb(105, 32, 232)",
   color: "white",
   padding: "10px",
   border: "none",
@@ -274,59 +335,72 @@ const buttonStyle = {
 
 const styles = {
     rightSection: {
-        backgroundColor: "#f9f9f9",
-        padding: "20px",
-        borderRadius: "12px",
-        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-        maxWidth: "400px",
+        background: "linear-gradient(145deg, rgba(50, 30, 80, 0.95), rgba(40, 20, 60, 0.95))",
+        padding: "24px",
+        borderRadius: "16px",
+        boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+        maxWidth: "420px",
         textAlign: "center",
         margin: "auto",
-    },
-    historyTitle: {
+        marginTop: "100px",
+        marginBottom: "100px",
+        color: "#e0e0e0",
+        backdropFilter: "blur(10px)",
+      },
+      
+      historyTitle: {
         fontSize: "22px",
         fontWeight: "bold",
-        marginBottom: "12px",
-        color: "#333",
-    },
-    historyList: {
+        marginBottom: "16px",
+        color: "#f1f1f1",
+        letterSpacing: "0.5px",
+      },
+      
+      historyList: {
         listStyleType: "none",
         padding: "0",
-    },
-    historyItem: {
-        backgroundColor: "#fff",
-        padding: "10px",
-        margin: "8px 0",
-        borderRadius: "8px",
-        boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)",
+      },
+      
+      historyItem: {
+        backgroundColor: "rgba(255, 255, 255, 0.08)",
+        padding: "12px",
+        margin: "10px 0",
+        borderRadius: "10px",
+        boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.2)",
         fontSize: "16px",
         fontWeight: "500",
+        color: "#f0f0f0",
         transition: "background 0.3s ease",
         cursor: "pointer",
-    },
-    noHistory: {
+      },
+      
+      noHistory: {
         fontSize: "16px",
         fontStyle: "italic",
-        color: "#777",
-    },
-    clearButton: {
-        backgroundColor: "rgb(210, 84, 84)",
-        color: "white",
+        color: "#999",
+      },
+      
+      clearButton: {
+        backgroundColor: "rgb(170, 84, 210)",
+        color: "#fff",
         border: "none",
-        padding: "10px 15px",
-        borderRadius: "8px",
+        padding: "12px 18px",
+        borderRadius: "10px",
         cursor: "pointer",
-        marginTop: "15px",
-        fontSize: "14px",
+        marginTop: "20px",
+        fontSize: "15px",
         fontWeight: "bold",
-        transition: "background 0.3s ease",
-    },
-
+        transition: "background 0.3s ease, transform 0.2s ease",
+        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+      },
+      
 
     container: {
         maxWidth: "1200px",
         margin: "0 auto",
         paddingTop: "80px", // Adjusted to avoid hiding the header
         fontFamily: "monospace",
+        marginBottom:"600px"
     },
     
     header: {
@@ -344,6 +418,7 @@ const styles = {
         height: "100px",
         display: "flex", // Use flexbox
         alignItems: "flex-end", // Center text vertically
+        marginTop:"700px"
     },
     
     // Add padding below this section
@@ -365,7 +440,7 @@ const styles = {
     },
     userDetails: {
         padding: "20px",
-        backgroundColor: "#f9f9f9",
+        backgroundColor: " #f9f9f9",
         borderRadius: "8px",
         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
         maxWidth: "400px",
@@ -385,30 +460,42 @@ const styles = {
         color: "#555",
     },
     statsBox: {
-        backgroundColor: "#f1f1f1",
-        padding: "15px",
-        borderRadius: "8px",
-        textAlign: "center",
-        fontSize: "18px",
-        fontWeight: "bold",
-    },
-    card: {
+        background: "linear-gradient(145deg, rgba(40,30,70,0.9), rgba(30,20,50,0.9))",
         padding: "20px",
-        backgroundColor: "#fff",
-        borderRadius: "8px",
-        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+        borderRadius: "12px",
         textAlign: "center",
-    },
-    statTitle: {
         fontSize: "18px",
         fontWeight: "bold",
-        marginBottom: "5px",
-    },
-    statValue: {
-        fontSize: "24px",
-        fontWeight: "bold",
-        color: "#333",
-    },
+        color: "#e0e0e0",
+        boxShadow: "0 8px 20px rgba(0,0,0,0.3)",
+        backdropFilter: "blur(10px)",
+      },
+      
+      card: {
+        padding: "24px",
+        backgroundColor: "rgba(73, 33, 153, 0.8)", // slightly transparent dark purple
+        borderRadius: "16px",
+        boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5)",
+        textAlign: "center",
+        color: "#f5f5f5",
+        backdropFilter: "blur(8px)",
+      },
+      
+      statTitle: {
+        fontSize: "16px",
+        fontWeight: "600",
+        color: "#bbb",
+        marginBottom: "6px",
+        textTransform: "uppercase",
+        letterSpacing: "1px",
+      },
+      
+      statValue: {
+        fontSize: "28px",
+        fontWeight: "700",
+        color: "#ffffff",
+      },
+      
     // rightSection: {
     //     flex: "1",
     //     textAlign: "left",

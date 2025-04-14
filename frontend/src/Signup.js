@@ -9,15 +9,15 @@ function Signup() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const inputStyle = {
-    padding: "12px",
-    margin: "8px 0",
-    borderRadius: "8px",
-    border: "1px solid #ddd",
-    width: "100%",
-    fontSize: "16px",
-    outline: "none",
-  };
+  // const inputStyle = {
+  //   padding: "12px",
+  //   margin: "8px 0",
+  //   borderRadius: "8px",
+  //   border: "1px solid #ddd",
+  //   width: "100%",
+  //   fontSize: "16px",
+  //   outline: "none",
+  // };
 
   const handleSignup = async (e) => {
     e.preventDefault();
