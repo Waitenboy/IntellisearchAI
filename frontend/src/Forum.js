@@ -12,6 +12,11 @@ const Forum = () => {
     const [userId] = useState(localStorage.getItem("userId")); // Fetch logged-in userId
 
     useEffect(() => {
+            window.scrollTo(0, 0);
+          }, []);
+    
+
+    useEffect(() => {
         fetchQuestions();
     }, []);
 

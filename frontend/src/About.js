@@ -11,6 +11,11 @@ const imageRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+          window.scrollTo(0, 0);
+        }, []);
+  
+
+  useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsVisible(entry.isIntersecting);
