@@ -212,7 +212,7 @@ function Roadmap() {
         boxShadow: "0 8px 16px rgba(0, 0, 0, 0.3)",
         backdropFilter: "blur(12px)",
         color: "#ffffff",
-        fontFamily: "Iceland"
+        fontFamily: "Rasa"
     }}>
         <h3 style={{ fontSize: "32px", marginBottom: "20px", fontWeight: "bold" }}>
             📚 Plan Your Learning Journey
@@ -339,7 +339,7 @@ function Roadmap() {
       transition: "all 0.3s ease-in-out",
       animation: "fadeIn 0.6s ease-out",
       zIndex: "10",
-      fontFamily: "Iceland, sans-serif",
+      fontFamily: "Rasa",
     }}
   >
     <h3
