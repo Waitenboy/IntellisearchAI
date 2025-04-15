@@ -99,8 +99,8 @@ function ResponsiveAppBar() {
                 sx={{ 
                   mt: '45px',
                   '& .MuiPaper-root': {
-                    backgroundColor: '#1e1e1e',
-                    color: '#e0e0e0',
+                    backgroundColor: ' #1e1e1e',
+                    color: ' #e0e0e0',
                   }
                 }}
                 anchorEl={anchorElUser}
@@ -111,15 +111,16 @@ function ResponsiveAppBar() {
                   <MenuItem 
                     key={setting} 
                     onClick={handleCloseUserMenu}
+                    style={{fontFamily:"monospace"}}
                     sx={{
                       '&:hover': {
-                        backgroundColor: '#2e2e2e',
+                        backgroundColor: ' #2e2e2e',
                       }
                     }}
                   >
                     <NavLink 
                       to={`/${setting.toLowerCase()}`} 
-                      style={{ textDecoration: 'none', color: '#e0e0e0' }}
+                      style={{ textDecoration: 'none', color: ' #e0e0e0' , fontFamily:"monospace"}}
                     >
                       {setting}
                     </NavLink>
@@ -127,9 +128,10 @@ function ResponsiveAppBar() {
                 ))}
                 <MenuItem 
                   onClick={handleLogout}
+                  style={{fontFamily:"monospace"}}
                   sx={{
                     '&:hover': {
-                      backgroundColor: '#2e2e2e',
+                      backgroundColor: ' #2e2e2e',
                     }
                   }}
                 >
@@ -167,7 +169,7 @@ function ResponsiveAppBar() {
                   textDecoration: 'none',
                   textTransform: 'none',
                   '&:hover': {
-                    backgroundColor: '#2e2e2e',  // Dark grey hover
+                    backgroundColor: ' #2e2e2e',  // Dark grey hover
                   }
                 }}
                 
@@ -209,9 +211,13 @@ function ResponsiveAppBar() {
                     to="/signup" 
                     sx={{ 
                       color: 'white', 
+                      fontFamily: "monospace",
+                      fontWeight: 700,
+                  fontSize: '1.1rem',
+                  letterSpacing: '.3rem',
                       textTransform: 'none',
                       '&:hover': {
-                        backgroundColor: '#2e2e2e',
+                        backgroundColor: ' #2e2e2e',
                       }
                     }}
                   >

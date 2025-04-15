@@ -285,6 +285,7 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
+            </div>
     
             {/* Right Section: Search History */}
             <div style={styles.rightSection}>
@@ -308,7 +309,7 @@ const Profile = () => {
                 )}
             </div>
             </div>
-        </div>
+        
     </div>
     
     
